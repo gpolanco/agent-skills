@@ -19,6 +19,7 @@ Reusable patterns for modern web development:
 | [tailwind-4](tailwind-4)                     | 📚 Knowledge | cn() utility, Tailwind 4          | "Styling with Tailwind"        | ✅     |
 | [nextjs](nextjs)                             | 📚 Knowledge | App Router, caching, middleware   | "Writing Next.js code"         | ✅     |
 | [supabase](supabase)                         | 📚 Knowledge | SSR auth, RLS, data access        | "Working with Supabase"        | ✅     |
+| [forms](forms)                               | 📚 Knowledge | React Hook Form + Zod patterns    | "Creating forms"               | ✅     |
 | playwright                                   | 📚 Knowledge | Page Object Model, selectors      | "Writing E2E tests"            | 📝     |
 | zustand-5                                    | 📚 Knowledge | Persist, selectors, slices        | "Managing client state"        | 📝     |
 
