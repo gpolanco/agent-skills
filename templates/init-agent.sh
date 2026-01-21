@@ -1,36 +1,54 @@
 #!/bin/bash
 
 # Agent Skills Initialization Script
-# This script sets up the local environment for AI Agent Skills.
+# This script performs a bulk download of all AI Agent Skills.
 
 # Colors for output
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
+RED='\033[0;31m'
 NC='\033[0m'
 
-echo -e "${BLUE}🚀 Initializing AI Agent Skills...${NC}"
+REPO_NAME="skills-as-context"
+ZIP_URL="https://github.com/gpolanco/skills-as-context/archive/refs/heads/main.zip"
+TEMP_DIR=".skills_temp"
 
-# 1. Create skills directory
-mkdir -p skills/skill-integrator
-mkdir -p templates
+echo -e "${BLUE}� Initializing Bulk AI Agent Skills...${NC}"
 
-# 2. Check if we are running from the source repo or as a curl command
-# For now, we assume this is copied into the project.
+# 1. Download and Extract
+echo -e "${BLUE}📦 Downloading skills catalog from GitHub...${NC}"
 
-echo -e "${GREEN}✅ Created skills directory structure.${NC}"
+if ! curl -sSL "$ZIP_URL" -o "$TEMP_DIR.zip"; then
+    echo -e "${RED}❌ Failed to download skills catalog.${NC}"
+    exit 1
+fi
 
-# 3. Create placeholder for AGENTS.md if it doesn't exist
+mkdir -p "$TEMP_DIR"
+unzip -q "$TEMP_DIR.zip" -d "$TEMP_DIR"
+
+# Determine the extracted folder name (usually repo-name-main)
+EXTRACTED_FOLDER=$(ls "$TEMP_DIR" | head -n 1)
+
+# 2. Copy folders to project root
+echo -e "${BLUE}📂 Copying skills and templates...${NC}"
+
+cp -r "$TEMP_DIR/$EXTRACTED_FOLDER/skills" ./
+cp -r "$TEMP_DIR/$EXTRACTED_FOLDER/templates" ./
+
+# 3. Initialize project files
 if [ ! -f "AGENTS.md" ]; then
-    echo -e "${BLUE}📝 Creating AGENTS.md from template...${NC}"
-    # This would normally download from the repo if not present
-    touch AGENTS.md
+    echo -e "${BLUE}📝 Creating initial AGENTS.md...${NC}"
+    cp templates/AGENTS.template.md AGENTS.md
 fi
 
-# 4. Create placeholder for skills/README.md
 if [ ! -f "skills/README.md" ]; then
-    echo -e "${BLUE}📝 Creating skills/README.md from template...${NC}"
-    touch skills/README.md
+    echo -e "${BLUE}📝 Creating skills catalog README...${NC}"
+    cp templates/SKILLS_README.template.md skills/README.md
 fi
 
-echo -e "${GREEN}✨ Initialization complete!${NC}"
-echo -e "${BLUE}🤖 AI Handover:${NC} Please ask your AI assistant: \"Help me configure my skills and AGENTS.md file\""
+# 4. Cleanup
+rm -rf "$TEMP_DIR"
+rm "$TEMP_DIR.zip"
+
+echo -e "${GREEN}✅ All skills and templates have been imported locally!${NC}"
+echo -e "${BLUE}🤖 AI Handover:${NC} Please ask your AI assistant: \"Analyze my project stack and configure my AGENTS.md based on the local skills catalog. Use @skill-integrator for guidance.\""

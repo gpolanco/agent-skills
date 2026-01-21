@@ -30,33 +30,23 @@ I recommend importing the following skills from @build-a-skills:
 Shall I import these now? (This will create folders in `skills/`)
 ```
 
-## Phase 3: The Import (Technical Steps)
+## Phase 3: Orchestration (Technical Steps)
 
-When you have permission to import a skill (e.g., `skill-name`):
+Since all skills are already present in the `skills/` directory, your job is to "activate" them in the project's orchestration files.
 
-1.  **Source Discovery**: Locate the skill folder in the [community repository](https://github.com/gpolanco/skills-as-context/tree/main/skills).
-2.  **Creation**: Create `skills/skill-name/` and `skills/skill-name/reference/`.
-3.  **Transfer**:
-    - Read the `SKILL.md` from the source.
-    - Write it to the local project.
-    - Repeat for all files in the `reference/` folder.
-4.  **Verification**: Confirm the files are readable by you.
+1.  **Selection**: Identify the subset of skills in `skills/` that match the project's tech stack.
+2.  **Activation (AGENTS.md)**:
+    - If `AGENTS.md` doesn't exist, create it from `templates/AGENTS.template.md`.
+    - Fill in the `{PROJECT_NAME}` and `{PROJECT_PURPOSE}`.
+    - Update the "Available Skills" table with the selected local skills.
+    - Add corresponding entries to the "Auto-invoke Skills" table.
+3.  **Catalog Update (skills/README.md)**:
+    - Update the status of the selected skills to "✅ Active".
+4.  **Verification**: Confirm that all paths in `AGENTS.md` correctly point to the local `skills/` subdirectory.
 
-## Phase 4: Project Orchestration
-
-A skill is useless if the AI doesn't know when to use it.
-
-1.  **Update `AGENTS.md`**:
-    - Add the skill to the "Available Skills" table.
-    - Add it to the "Auto-invoke" table with a clear trigger.
-2.  **Update `skills/README.md`**:
-    - Add the skill to the catalog so the user has a visual inventory.
-
-## Phase 5: Initialization (First Time Only)
+## Phase 4: Initialization (First Time Only)
 
 If the project has NO agent context yet:
 
-1.  Create the `skills/` folder.
-2.  Import `skill-integrator` and `skill-creator`.
-3.  Generate `AGENTS.md` using the `templates/AGENTS.template.md` as a base.
-4.  Fill in the `{PROJECT_NAME}` and `{PROJECT_PURPOSE}` placeholders by inferring from existing docs.
+1.  Ensure the `skills/` and `templates/` folders were created by the setup script.
+2.  Follow the **Orchestration** steps above to generate the first version of the project's context.
