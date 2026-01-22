@@ -1,4 +1,4 @@
-# Build-a-Skills 🎯
+# Skills as Context 🎯
 
 **Standardized AI Agent Skills for modern full-stack development.**
 

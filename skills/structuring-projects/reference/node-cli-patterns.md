@@ -14,23 +14,49 @@ For DDD patterns, see [ddd-rules.md](ddd-rules.md).
 - Building background workers/cron jobs
 - Building Node.js services (no frontend)
 
+**Default Structure Philosophy:**
+- Use `src/core/` for most projects (simple and direct)
+- Only add `features/` if you have **multiple independent domains**
+- Keep it simple unless complexity demands otherwise
+
 ---
 
 ## Project Structure
 
-### Simple Feature-Based (Non-DDD)
+### Simple Structure (Recommended for most projects)
 
 ```
 src/
-  features/
-    <domain>/
-      services/       # Business logic
-      models/         # Data models (Prisma, Mongoose, etc.)
-      types/          # TypeScript types
-      utils/          # Feature-specific helpers
-      index.ts        # Public API exports
+  core/               # Business logic & application layer
+    domain/           # Pure business logic (ZERO dependencies)
+      entities/
+        listing.ts
+        event.ts
+      value-objects/
+        money.ts
+        listing-id.ts
+      repositories/   # Interfaces ONLY
+        listing-repository.ts
+      services/
+        scoring-service.ts
+    
+    application/      # Use cases (orchestration)
+      services/
+        search-run-service.ts
+        daily-report-service.ts
+    
+    infrastructure/   # Adapters (external dependencies)
+      db/
+        prisma-client.ts
+        repositories/
+          prisma-listing-repository.ts
+      http/
+        scrapers/
+          idealista-scraper.ts
+      messaging/
+        telegram-client.ts
   
-  shared/             # Cross-feature utilities
+  shared/             # Cross-cutting utilities
     logging/
       logger.ts
     config/
@@ -57,52 +83,34 @@ src/
 
 ---
 
-### DDD/Hexagonal (Complex Business Logic)
+### When to Use Features (Optional)
+
+If your project has **multiple independent domains** (e.g., billing + inventory + shipping), consider using features:
 
 ```
 src/
   features/
-    core/
-      domain/         # Pure business logic (ZERO dependencies)
-        entities/
-          listing.ts
-          event.ts
-        value-objects/
-          money.ts
-          listing-id.ts
-        repositories/  # Interfaces ONLY
-          listing-repository.ts
-        services/
-          scoring-service.ts
-      
-      application/    # Use cases (orchestration)
-        services/
-          search-run-service.ts
-          daily-report-service.ts
-      
-      infrastructure/ # Adapters (external dependencies)
-        db/
-          prisma-client.ts
-          repositories/
-            prisma-listing-repository.ts
-        http/
-          scrapers/
-            idealista-scraper.ts
-        messaging/
-          telegram-client.ts
+    billing/
+      domain/
+      application/
+      infrastructure/
+    
+    inventory/
+      domain/
+      application/
+      infrastructure/
   
-  shared/             # Cross-cutting concerns
-    logging/
-    config/
-    time/
-  
-  app/                # Entry points
-    cli/
-      commands/
-    bootstrap.ts
+  shared/
+  app/
 ```
 
-**Critical Rule:**
+**Otherwise, stick to the simple structure above (src/core/).**
+
+---
+
+## DDD Layer Rules
+
+**Critical Dependencies:**
 - `domain/` NEVER imports from `infrastructure/` or `application/`
 - `application/` imports `domain/` and `infrastructure/`
 - `infrastructure/` implements interfaces defined in `domain/`
@@ -134,7 +142,7 @@ app/                 # Entry points (NOT routing)
 
 **When using DDD in Node.js:**
 ```
-src/features/core/
+src/core/
   application/       # Use cases layer (NOT entry points)
     services/        # Application services (orchestration)
 ```
@@ -147,24 +155,16 @@ src/features/core/
 
 ```
 src/
-  features/
-    scraping/
-      services/
-        scraper.service.ts
-      models/
-        listing.ts
-      types/
-        scraper.types.ts
-      utils/
-        throttle.ts
-      index.ts            # Export ScraperService
-    
-    notifications/
-      services/
-        telegram.service.ts
-      types/
-        message.types.ts
-      index.ts
+  core/
+    services/
+      scraper.service.ts
+      telegram.service.ts
+    models/
+      listing.ts
+    types/
+      scraper.types.ts
+    utils/
+      throttle.ts
   
   shared/
     logging/
@@ -190,22 +190,16 @@ src/
 
 ```
 src/
-  features/
-    users/
-      services/
-        user.service.ts
-      models/
-        user.model.ts
-      types/
-        user.types.ts
-      index.ts
-    
-    posts/
-      services/
-        post.service.ts
-      models/
-        post.model.ts
-      index.ts
+  core/
+    services/
+      user.service.ts
+      post.service.ts
+    models/
+      user.model.ts
+      post.model.ts
+    types/
+      user.types.ts
+      post.types.ts
   
   shared/
     middleware/
@@ -225,7 +219,7 @@ src/
 ```typescript
 // app/routes/users.routes.ts
 import { Router } from "express";
-import { UserService } from "@/features/users";
+import { UserService } from "@/core/services/user.service";
 
 const router = Router();
 
@@ -246,7 +240,7 @@ export default router;
 
 ```typescript
 // app/cli/commands/run-scrape.ts
-import { ScraperService } from "@/features/scraping";
+import { ScraperService } from "@/core/services/scraper.service";
 import { logger } from "@/shared/logging/logger";
 import { loadConfig } from "@/shared/config/config-loader";
 
@@ -278,7 +272,7 @@ if (require.main === module) {
 // app/bootstrap.ts
 import { loadConfig } from "@/shared/config/config-loader";
 import { logger } from "@/shared/logging/logger";
-import { ScraperService } from "@/features/scraping";
+import { ScraperService } from "@/core/services/scraper.service";
 import cron from "node-cron";
 
 async function bootstrap() {
@@ -342,12 +336,12 @@ When using DDD, entry points orchestrate application services:
 
 ```typescript
 // app/cli/commands/run-scrape.ts
-import { SearchRunService } from "@/features/core/application/services/search-run-service";
-import { NotificationService } from "@/features/core/application/services/notification-service";
+import { SearchRunService } from "@/core/application/services/search-run-service";
+import { NotificationService } from "@/core/application/services/notification-service";
 
 // Infrastructure implementations
-import { PrismaListingRepository } from "@/features/core/infrastructure/db/repositories/prisma-listing-repository";
-import { TelegramClient } from "@/features/core/infrastructure/messaging/telegram-client";
+import { PrismaListingRepository } from "@/core/infrastructure/db/repositories/prisma-listing-repository";
+import { TelegramClient } from "@/core/infrastructure/messaging/telegram-client";
 
 async function runScrapeCommand() {
   // Wire up dependencies (or use DI container)
@@ -389,24 +383,22 @@ async function runScrapeCommand() {
 ## Commands
 
 ```bash
-# Create Node.js feature structure
-mkdir -p src/features/<domain>/{services,models,types,utils}
-touch src/features/<domain>/index.ts
-
-# Create shared infrastructure
+# Create simple Node.js structure
+mkdir -p src/core/{services,models,types,utils}
 mkdir -p src/shared/{logging,config,errors,time}
-
-# Create CLI structure
 mkdir -p src/app/cli/commands
 
 # Create API structure
 mkdir -p src/app/routes
 
 # Create DDD structure
-mkdir -p src/features/core/{domain,application,infrastructure}
-mkdir -p src/features/core/domain/{entities,value-objects,repositories,services}
-mkdir -p src/features/core/application/services
-mkdir -p src/features/core/infrastructure/{db,http,messaging}
+mkdir -p src/core/{domain,application,infrastructure}
+mkdir -p src/core/domain/{entities,value-objects,repositories,services}
+mkdir -p src/core/application/services
+mkdir -p src/core/infrastructure/{db,http,messaging}
+
+# If you need features (multiple domains)
+mkdir -p src/features/{billing,inventory}/{domain,application,infrastructure}
 ```
 
 ---
@@ -476,7 +468,7 @@ export class AppError extends Error {
   }
 }
 
-// features/scraping/errors/scraper-error.ts
+// core/errors/scraper-error.ts
 import { AppError } from "@/shared/errors/base-error";
 
 export class ScraperError extends AppError {

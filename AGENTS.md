@@ -75,7 +75,7 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 
 ---
 
-## Development Rules
+## Development Rules (Skill Creation)
 
 ### ALWAYS
 
@@ -100,6 +100,28 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 - **Create monolithic skills** - one skill = one responsibility
 - **Use auto_invoke: true** - use `false` or descriptive string
 - **Skip frontmatter fields** - all metadata fields are required
+
+---
+
+## Code Quality Rules (CRITICAL)
+
+### ⚠️ ALWAYS (Non-Negotiable)
+
+- **Verify types IMMEDIATELY** after writing code - run `tsc --noEmit` or check IDE errors
+- **Fix ALL errors BEFORE continuing** - Never leave red squiggles or linter errors
+- **Read linter output** after each file edit - Address every warning/error
+- **Test compilation** - Ensure code compiles successfully before moving to next task
+- **Validate imports** - Ensure all imports resolve correctly
+- **Check for undefined/null** - Use TypeScript strict mode checks
+
+### 🚫 NEVER (Zero Tolerance)
+
+- **NEVER continue with next task if current code has errors**
+- **NEVER leave TypeScript errors unresolved** ("I'll fix it later" = NOT ALLOWED)
+- **NEVER assume code works** - Always verify
+- **NEVER skip type annotations** on function parameters and returns
+- **NEVER use `any`** unless explicitly approved by user
+- **NEVER commit broken code** - Each edit must compile successfully
 
 ### DEFAULTS
 

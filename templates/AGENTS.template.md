@@ -100,12 +100,15 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 
 #### Architecture
 
-- **Follow Project Structure Patterns**: See `structuring-projects` skill
-  - Feature-based organization (see skill Decision Tree for your project type)
-  - For DDD/Hexagonal: See `reference/ddd-rules.md`
-  - For Next.js: See `reference/nextjs-patterns.md`
-  - For Node.js CLI/APIs: See `reference/node-cli-patterns.md`
-  - {Add project-specific architecture rules}
+**⚠️ CRITICAL: Read the EXACT structure for your project type:**
+
+- **Follow `structuring-projects` skill Decision Tree** → It will tell you which reference file to read
+- **Backend API/CLI**: MUST read `skills/structuring-projects/reference/node-cli-patterns.md` FIRST
+- **Frontend (Next.js)**: MUST read `skills/structuring-projects/reference/nextjs-patterns.md` FIRST
+- **DDD/Hexagonal**: MUST read `skills/structuring-projects/reference/ddd-rules.md` FIRST
+- **DO NOT create structure from memory** - Follow the exact examples in reference files
+- {Add project-specific architecture rules}
+
 - **Single Source of Truth**: Routes, types, and schemas defined once and imported everywhere
 
 #### Data Flow
@@ -136,7 +139,26 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 - **Never mutate objects in App layer** - Always return new objects (if using service layer)
 - {Add project-specific architecture violations}
 
-#### Code Quality
+#### Code Quality (CRITICAL)
+
+**⚠️ ALWAYS (Non-Negotiable):**
+
+- **Verify types IMMEDIATELY** after writing code - run `tsc --noEmit` or check IDE errors
+- **Fix ALL errors BEFORE continuing** - Never leave red squiggles or linter errors
+- **Read linter output** after each file edit - Address every warning/error
+- **Test compilation** - Ensure code compiles successfully before moving to next task
+- **Validate imports** - Ensure all imports resolve correctly
+
+**🚫 NEVER (Zero Tolerance):**
+
+- **NEVER continue with next task if current code has errors**
+- **NEVER leave TypeScript errors unresolved** ("I'll fix it later" = NOT ALLOWED)
+- **NEVER assume code works** - Always verify
+- **NEVER skip type annotations** on function parameters and returns
+- **NEVER use `any`** unless explicitly approved
+- **NEVER commit broken code** - Each edit must compile successfully
+
+**Project-Specific:**
 
 - **Never hardcode routes** - Use centralized route definitions from `features/routes.ts`
 - **Never return `null` for missing data in repos** - Throw appropriate errors

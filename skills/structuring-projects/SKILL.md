@@ -27,6 +27,20 @@ allowed-tools: Read
 
 ---
 
+## 🚨 CRITICAL: Reference Files are MANDATORY
+
+**This SKILL.md provides PRINCIPLES only. For EXACT structure:**
+
+| Project Type | MANDATORY Reading |
+|--------------|-------------------|
+| **Backend API/CLI** (Node.js, Python, Go, PHP) | [reference/node-cli-patterns.md](reference/node-cli-patterns.md) |
+| **Frontend** (Next.js, React) | [reference/nextjs-patterns.md](reference/nextjs-patterns.md) |
+| **DDD/Hexagonal** | [reference/ddd-rules.md](reference/ddd-rules.md) |
+
+**⚠️ DO NOT invent structure from memory. READ the exact reference file for your project type.**
+
+---
+
 ## When to Use
 
 - Setting up a new project structure (any language/framework)
@@ -42,19 +56,33 @@ allowed-tools: Read
 ```
 What type of project are you working on?
 │
-├─ 🌐 Frontend (React, Next.js, Vue)
-│  └─ See: reference/nextjs-patterns.md
+├─ 🌐 Frontend ONLY (React, Next.js, Vue)
+│  └─ ⚠️ STOP → Read reference/nextjs-patterns.md FIRST
 │
-├─ 🔧 Backend API/CLI (Node.js, Python, Go, PHP)
+├─ 🔧 Backend/CLI ONLY (Node.js, Python, Go, PHP)
 │  ├─ Simple CRUD?
-│  │  └─ Use Feature-Based Structure (see below)
+│  │  └─ ⚠️ STOP → Read reference/node-cli-patterns.md → "Simple Feature-Based" section
 │  │
-│  └─ Complex Business Logic?
-│     └─ Use DDD Structure (see reference/ddd-rules.md)
+│  └─ Complex Business Logic (DDD)?
+│     └─ ⚠️ STOP → Read reference/ddd-rules.md FIRST
+│        (DO NOT use the simplified example below - it's incomplete)
 │
-└─ 📦 Fullstack Monorepo
-   └─ Combine patterns per app type
+└─ 📦 Fullstack Monorepo (Multiple Apps)
+   ├─ For EACH app in apps/, apply the pattern for its type:
+   │  ├─ apps/web/ (Next.js) → Use reference/nextjs-patterns.md
+   │  ├─ apps/api/ (Backend) → Use reference/node-cli-patterns.md
+   │  └─ apps/worker/ (CLI)  → Use reference/node-cli-patterns.md
+   │
+   └─ DO NOT mix patterns within a single app
 ```
+
+**🚫 NEVER create structure from memory or assumptions. ALWAYS read the specific reference file for each app type.**
+
+**Note on Monorepos:**
+- A monorepo contains MULTIPLE independent apps in `apps/` or `packages/`
+- Each app maintains its OWN structure according to its type (don't mix patterns)
+- Example: `apps/web/` uses Next.js patterns, `apps/api/` uses Node.js backend patterns
+- Shared code goes in `packages/@shared/` with its own structure
 
 ---
 
@@ -132,7 +160,14 @@ src/
 - Need for domain events
 - Large teams requiring clear boundaries
 
-**Universal DDD Structure:**
+**⚠️ STOP: DO NOT implement DDD from the simplified example below.**
+
+**👉 MANDATORY: Read [reference/ddd-rules.md](reference/ddd-rules.md) FIRST for:**
+- Complete folder structure with `app/` entry points
+- Layer dependency rules and import patterns
+- Concrete examples for your language/runtime
+
+**Simplified Overview (REFERENCE ONLY - NOT for implementation):**
 
 ```
 src/
@@ -152,11 +187,13 @@ src/
           repositories/  # Repository implementations
         http/
         messaging/
+  
+  app/                 # Entry points (see reference/ddd-rules.md)
 ```
 
-**Full DDD Rules:** See [reference/ddd-rules.md](reference/ddd-rules.md)
-
 **Key Principle:** Domain layer has ZERO dependencies on infrastructure or frameworks.
+
+**🚨 This example is incomplete. Missing: entry points, shared/, path aliases, and more. → [reference/ddd-rules.md](reference/ddd-rules.md)**
 
 ---
 
