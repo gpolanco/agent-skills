@@ -50,10 +50,10 @@
 
 ## Available Skills
 
-| Skill              | Description                                 | URL                                          |
-| ------------------ | ------------------------------------------- | -------------------------------------------- |
-| `skill-integrator` | Manage and import AI skills                 | [SKILL.md](skills/skill-integrator/SKILL.md) |
-| `skill-creator`    | Create/modify AI agent skills (V5 standard) | [SKILL.md](skills/skill-creator/SKILL.md)    |
+| Skill              | Description                   | URL                                          |
+| ------------------ | ----------------------------- | -------------------------------------------- |
+| `skill-integrator` | Manage and import AI skills   | [SKILL.md](skills/skill-integrator/SKILL.md) |
+| `skill-creator`    | Create/modify AI agent skills | [SKILL.md](skills/skill-creator/SKILL.md)    |
 
 ### Generic Skills
 
@@ -65,6 +65,9 @@
 | `typescript`           | Strict types, const patterns                | ✅ Ready | [SKILL.md](skills/typescript/SKILL.md)           |
 | `tailwind-4`           | cn() utility, Tailwind 4 API                | ✅ Ready | [SKILL.md](skills/tailwind-4/SKILL.md)           |
 | `nextjs`               | App Router, Server Components               | ✅ Ready | [SKILL.md](skills/nextjs/SKILL.md)               |
+| `forms`                | React Hook Form + Zod patterns              | ✅ Ready | [SKILL.md](skills/forms/SKILL.md)                |
+| `supabase`             | Auth, RLS, SSR best practices               | ✅ Ready | [SKILL.md](skills/supabase/SKILL.md)             |
+| `testing-vitest`       | Vitest testing patterns                     | ✅ Ready | [SKILL.md](skills/testing-vitest/SKILL.md)       |
 
 | {Add/remove skills as needed}
 
@@ -84,6 +87,9 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 | Writing TypeScript types/interfaces | `typescript`           |
 | Styling with Tailwind               | `tailwind-4`           |
 | Writing Next.js code                | `nextjs`               |
+| Creating forms                      | `forms`                |
+| Working with Supabase               | `supabase`             |
+| Writing tests                       | `testing-vitest`       |
 | {Add project-specific triggers}     | `{project-skill}`      |
 
 ---

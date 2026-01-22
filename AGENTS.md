@@ -80,7 +80,7 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 ### ALWAYS
 
 - **Load skill-creator** before creating/editing skills
-- **Follow design guidelines** strictly ([reference](skills/skill-creator/references/skill-designer-core.md))
+- **Follow design guidelines** strictly ([reference](skills/skill-creator/reference/skill-designer-core.md))
 - **Keep SKILL.md under 500 lines** - use Progressive Disclosure (move details to `reference/`)
 - **Include ALWAYS/NEVER patterns** in every skill
 - **Use kebab-case** for skill names
@@ -108,7 +108,7 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 - License: Apache 2.0
 - `auto_invoke`: `false` for writing skills, descriptive string for read-only/knowledge skills
 - `allowed-tools`: `Read` for Knowledge skills, `Read, Write, Bash` for Tool/Hybrid
-- Skill types (V5): Knowledge (patterns), Tool (scripts), Hybrid (both)
+- Skill types: Knowledge (patterns), Tool (scripts), Hybrid (both)
 
 ---
 
@@ -151,5 +151,5 @@ vi skills/README.md
 
 - [Skills Catalog](skills/README.md) - All available skills
 - [Skill Creator](skills/skill-creator/SKILL.md) - How to create skills
-- [Design Guidelines](skills/skill-creator/references/skill-designer-core.md) - Quality standards
+- [Design Guidelines](skills/skill-creator/reference/skill-designer-core.md) - Quality standards
 - [AGENTS Template](templates/AGENTS.template.md) - Template for other projects
