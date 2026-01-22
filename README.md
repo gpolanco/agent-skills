@@ -2,7 +2,7 @@
 
 **Standardized AI Agent Skills for modern full-stack development.**
 
-This repository provides a collection of [V5 Hybrid Skills](https://agentskills.io) that teach AI assistants (Claude, Cursor, Antigravity) how to follow your project's architectural patterns and coding standards.
+This repository provides a collection of [AI Agent Skills](https://agentskills.io) that teach AI assistants (Claude, Cursor, Antigravity) how to follow your project's architectural patterns and coding standards.
 
 ---
 
@@ -16,7 +16,7 @@ curl -sSL https://raw.githubusercontent.com/gpolanco/skills-as-context/main/temp
 
 **Next Step**: Ask your AI assistant (Claude, Cursor, Antigravity):
 
-> "Analyze my project stack and configure my AGENTS.md based on the local skills catalog. Use @skill-integrator for guidance. Use the remote templates as your source of truth."
+> "Use @skill-integrator to setup AGENTS.md for my project"
 
 ---
 
@@ -25,17 +25,21 @@ curl -sSL https://raw.githubusercontent.com/gpolanco/skills-as-context/main/temp
 ### ⚙️ Meta-Skills (The Orchestrators)
 
 - [**skill-integrator**](skills/skill-integrator): Analyzes your tech stack and auto-imports relevant skills.
-- [**skill-creator**](skills/skill-creator): Guides you in creating your own custom v5 skills.
+- [**skill-creator**](skills/skill-creator): Guides you in creating your own custom skills.
 
 ### 📚 Generic Skills (The Catalog)
 
-| Skill                                                   | Description                       | Status   |
-| :------------------------------------------------------ | :-------------------------------- | :------- |
-| [**structuring-projects**](skills/structuring-projects) | Feature-based architecture & DDD  | ✅ Ready |
-| [**react-19**](skills/react-19)                         | React 19 + Compiler patterns      | ✅ Ready |
-| [**nextjs**](skills/nextjs)                             | App Router & Server Components    | ✅ Ready |
-| [**supabase**](skills/supabase)                         | Auth, RLS, and SSR best practices | ✅ Ready |
-| [**zod-4**](skills/zod-4)                               | Runtime validation patterns       | ✅ Ready |
+| Skill                                                   | Description                                      | Status   |
+| :------------------------------------------------------ | :----------------------------------------------- | :------- |
+| [**structuring-projects**](skills/structuring-projects) | Universal patterns (Node.js, Next.js, Python, PHP) | ✅ Ready |
+| [**react-19**](skills/react-19)                         | React 19 + Compiler patterns                     | ✅ Ready |
+| [**nextjs**](skills/nextjs)                             | App Router & Server Components                   | ✅ Ready |
+| [**typescript**](skills/typescript)                     | Strict types & best practices                    | ✅ Ready |
+| [**zod-4**](skills/zod-4)                               | Validation patterns (requires zod@^4.0.0)        | ✅ Ready |
+| [**tailwind-4**](skills/tailwind-4)                     | Utility-first CSS patterns                       | ✅ Ready |
+| [**supabase**](skills/supabase)                         | Auth, RLS, and SSR best practices                | ✅ Ready |
+| [**forms**](skills/forms)                               | React Hook Form + Zod patterns                   | ✅ Ready |
+| [**testing-vitest**](skills/testing-vitest)             | Vitest testing patterns                          | ✅ Ready |
 
 👉 **[View Full Catalog →](skills/README.md)**
 
@@ -55,7 +59,7 @@ curl -sSL https://raw.githubusercontent.com/gpolanco/skills-as-context/main/temp
 Have a skill for a library you love?
 
 1. Open this repo with your AI.
-2. Use `@skill-creator` to build a new skill following the V5 standard.
+2. Use `@skill-creator` to build a new skill following our design guidelines.
 3. Submit a PR.
 
 ---
