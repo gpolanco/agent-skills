@@ -22,11 +22,28 @@
 
 **Tech Stack:**
 
+<!-- Choose based on project type and customize accordingly -->
+
+<!-- For Frontend (Next.js/React): -->
 - **Framework**: Next.js {version} (App Router)
-- **Language**: TypeScript (Strict Mode)
+- **UI**: {Styling approach - Tailwind, CSS Modules, etc.}
+
+<!-- For Backend (Node.js): -->
+- **Runtime**: Node.js {version}+
+- **Framework**: {Express/Fastify/Hono/None}
+
+<!-- For CLI Tools: -->
+- **Runtime**: Node.js {version}+
+- **Type**: CLI Application
+
+<!-- For Python: -->
+- **Runtime**: Python {version}+
+- **Framework**: {FastAPI/Django/Flask}
+
+<!-- Common for all: -->
+- **Language**: TypeScript (Strict Mode) OR Python OR PHP
 - **Database**: {Database name + ORM if applicable}
-- **UI**: {Styling approach - Vanilla CSS, Tailwind, etc.}
-- **Package Manager**: pnpm (v9+)
+- **Package Manager**: pnpm (v9+) OR npm OR yarn
 - {Add other key technologies}
 
 ---
@@ -77,17 +94,29 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 
 #### Architecture
 
-- **Follow Project Structure Patterns**: See `structuring-projects` skill and `reference/ddd-rules.md` (if using DDD)
-  - Feature-based organization
+- **Follow Project Structure Patterns**: See `structuring-projects` skill
+  - Feature-based organization (see skill Decision Tree for your project type)
+  - For DDD/Hexagonal: See `reference/ddd-rules.md`
+  - For Next.js: See `reference/nextjs-patterns.md`
+  - For Node.js CLI/APIs: See `reference/node-cli-patterns.md`
   - {Add project-specific architecture rules}
 - **Single Source of Truth**: Routes, types, and schemas defined once and imported everywhere
 
 #### Data Flow
 
+<!-- For Next.js projects: -->
 - **Server-First Data Loading**: Follow patterns in `nextjs` skill → [reference/data-fetching.md](skills/nextjs/reference/data-fetching.md)
-  - Action → Service → Repository flow (if applicable)
-  - Validate ALL inputs with Zod (see `zod-4` skill)
-  - {Add project-specific data flow rules}
+  - Server Components for data fetching
+  - Server Actions for mutations
+
+<!-- For Backend projects: -->
+- **Layered Architecture**: Follow dependency direction
+  - Controllers/Routes → Services → Repositories
+  - Domain → Application → Infrastructure (if using DDD)
+
+<!-- For all projects: -->
+- **Validate ALL inputs**: Use Zod (see `zod-4` skill) with explicit version `zod@^4.0.0`
+- {Add project-specific data flow rules}
 
 ### NEVER
 
@@ -111,11 +140,24 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 
 #### Development
 
+<!-- For Next.js: -->
 - Environment: Next.js {version}+ with App Router
 - Styling: {Default styling approach}
 - State: Server Components first, client state when necessary
-- Forms: React Hook Form + Zod validation
+- Forms: React Hook Form + Zod v4 validation
+
+<!-- For Node.js Backend/CLI: -->
+- Environment: Node.js {version}+
+- Configuration: YAML/JSON with Zod v4 validation
+- Logging: Structured JSON logs
+
+<!-- For Python: -->
+- Environment: Python {version}+
+- Configuration: Pydantic validation
+
+<!-- Common: -->
 - Database: {Database name} with {ORM/access pattern}
+- Testing: {Test framework}
 
 ---
 

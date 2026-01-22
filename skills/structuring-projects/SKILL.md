@@ -1,146 +1,249 @@
 ---
 name: structuring-projects
 description: >
-  Scaffolds project structures and enforces architectural patterns.
-  Trigger: When organizing project files, creating features, setting up imports, or refactoring codebase structure.
+  Enforces universal architectural patterns for organizing code.
+  Trigger: When organizing project files, creating features, setting up imports, 
+  implementing DDD/Hexagonal/Clean Architecture, or refactoring codebase structure.
+  Language-agnostic (applies to Node.js, Next.js, Python, PHP, Go, etc.)
 license: Apache-2.0
 metadata:
   author: gpolanco
-  version: "1.0.0"
+  version: "2.0.0"
   scope: [root]
   auto_invoke: "Organizing project structure"
 allowed-tools: Read
 ---
 
+# ⚠️ AUTO-INVOKE DIRECTIVE
+
+**This skill MUST be read BEFORE:**
+- Creating any project structure
+- Moving files between directories
+- Setting up path aliases
+- Deciding where to place code
+- Implementing DDD or Clean Architecture
+
+**If you are an AI agent performing any of the above, STOP and read this skill first.**
+
+---
+
 ## When to Use
 
-- Setting up a new project structure
+- Setting up a new project structure (any language/framework)
 - Creating new features or modules
 - Refactoring existing codebase organization
-- Defining import aliases and module boundaries
-- Organizing shared components and utilities
+- Defining import boundaries and module contracts
+- Implementing DDD, Hexagonal, or Clean Architecture
 
-## Critical Patterns
+---
+
+## Decision Tree
+
+```
+What type of project are you working on?
+│
+├─ 🌐 Frontend (React, Next.js, Vue)
+│  └─ See: reference/nextjs-patterns.md
+│
+├─ 🔧 Backend API/CLI (Node.js, Python, Go, PHP)
+│  ├─ Simple CRUD?
+│  │  └─ Use Feature-Based Structure (see below)
+│  │
+│  └─ Complex Business Logic?
+│     └─ Use DDD Structure (see reference/ddd-rules.md)
+│
+└─ 📦 Fullstack Monorepo
+   └─ Combine patterns per app type
+```
+
+---
+
+## Universal Principles (APPLIES TO ALL LANGUAGES)
 
 ### ALWAYS
 
-- Use `src/` as the single source root
-- Keep `app/` routing-only (no business logic)
-- Organize by features, not by file types
-- Use single alias `@/*` → `src/*`
-- Place all tests in `/tests` directory
-- Keep features self-contained and isolated
+- **Single Source Root**: All code in `src/` (or language equivalent: `lib/`, `app/`)
+- **Organize by Domain/Feature**: Group by business capability, NOT by technical layer
+- **Explicit Module Boundaries**: Each feature/module exports a public API
+- **Dependency Direction**: Dependencies point INWARD (domain ← infrastructure ← app)
+- **Path Aliases**: Use absolute imports (`@/`, `~/`) over deep relative imports
+- **Tests Isolated**: Tests in `/tests` (or `__tests__/`, `test/`) not mixed with src
 
 ### NEVER
 
-- Import internals from other features (`@/features/auth/utils/privateHelper`)
-- Mix tests inside `src/`
-- Use deep relative imports (`../../../../utils`)
-- Create global `utils/` folders without clear ownership
-- Create giant `types.ts` files
-- Put Server Actions in `src/app/actions` (Move them to the corresponding feature/actions)
+- **Never organize by file type at root**: `controllers/`, `services/`, `models/` as top-level
+- **Never use deep relative imports**: `../../../../utils/helper`
+- **Never create circular dependencies**: Module A imports B, B imports A
+- **Never create global "utils" dumping ground**: Use feature-specific utils
+- **Never bypass module boundaries**: Import internal implementation details directly
 
 ### DEFAULTS
 
-- Features communicate via public APIs only
-- Shared code lives in `features/shared/`
-- Naming: `kebab-case` for files/folders
+- Features communicate via public API exports only
+- Shared code lives in `shared/` (or `common/`, `core/`)
+- Naming: `kebab-case` for files/folders (except Python: `snake_case`)
+- Use single path alias: `@/*` → `src/*`
 
-## Base Project Structure
+---
 
-```text
+## Architecture Patterns
+
+### 1. Feature-Based (Default - Simple Projects)
+
+**When to use:**
+- Simple CRUD applications
+- Small to medium projects
+- Clear feature boundaries without complex domain logic
+
+**Universal Structure:**
+
+```
 src/
-  app/                    # Routing only (Next.js App Router)
-  features/              # Feature modules
+  features/
     <feature-name>/
-      components/        # Feature components
-      hooks/            # Feature hooks
-      actions/          # Server actions
-      types/            # Feature types
-      utils/            # Feature utilities
-      routes.ts         # Feature routes
-    shared/             # Cross-feature infrastructure
-      ui/              # UI components (not business logic)
-      components/      # Shared components
-      hooks/          # Shared hooks
-      types/          # Shared types
-  styles/              # Global styles
-  types/               # Global types only
-  config/              # Configuration
-
-tests/                 # All tests here
+      api/            # Public interface (exported functions/classes)
+      services/       # Business logic
+      models/         # Data models
+      types/          # Type definitions
+      utils/          # Feature-specific helpers
+      index.<ext>     # Public API exports (CRITICAL)
+  
+  shared/             # Cross-feature infrastructure
+    logging/
+    config/
+    errors/
+  
+  app/                # Entry points (meaning varies by framework)
 ```
 
-## Naming Conventions
+**Technology-Specific Details:**
+- **Next.js**: See [reference/nextjs-patterns.md](reference/nextjs-patterns.md)
+- **Node.js CLI/APIs**: See [reference/node-cli-patterns.md](reference/node-cli-patterns.md)
+- **Python**: (Coming soon)
+- **PHP**: (Coming soon)
 
-| Type                | Convention         | Example                             |
-| ------------------- | ------------------ | ----------------------------------- |
-| Files/Folders       | `kebab-case`       | `user-profile.tsx`, `auth-service/` |
-| Components/Classes  | `PascalCase`       | `UserProfile`, `AuthService`        |
-| Variables/Functions | `camelCase`        | `userName`, `getUserData()`         |
-| Constants           | `UPPER_SNAKE_CASE` | `MAX_RETRY_COUNT`                   |
+---
 
-## Feature Structure
+### 2. Domain-Driven Design (Complex Projects)
 
-Each feature is a self-contained module:
+**When to use:**
+- Complex business rules and invariants
+- Multiple bounded contexts
+- Need for domain events
+- Large teams requiring clear boundaries
 
-```text
-features/<feature-name>/
-├── components/         # UI components
-├── hooks/             # Custom hooks
-├── actions/           # Server actions
-├── types/             # TypeScript types
-├── utils/             # Feature-specific utilities
-└── routes.ts          # Route definitions
+**Universal DDD Structure:**
+
+```
+src/
+  features/            # OR packages/ in monorepo
+    core/              # OR <bounded-context>/
+      domain/          # Business logic (PURE - no framework/infra)
+        entities/
+        value-objects/
+        repositories/  # Interfaces ONLY
+        services/      # Domain services
+      
+      application/     # Use cases (orchestration layer)
+        services/      # Application services
+      
+      infrastructure/  # Technical implementations
+        db/
+          repositories/  # Repository implementations
+        http/
+        messaging/
 ```
 
-### Feature Isolation
+**Full DDD Rules:** See [reference/ddd-rules.md](reference/ddd-rules.md)
+
+**Key Principle:** Domain layer has ZERO dependencies on infrastructure or frameworks.
+
+---
+
+## Module Boundaries & Public APIs
+
+### Explicit Exports (CRITICAL PATTERN)
+
+Every feature MUST have a public API file that exports ONLY what other features need:
+
+**TypeScript/JavaScript:**
+```typescript
+// features/auth/index.ts
+export { AuthService } from "./services/auth-service";
+export { useAuth } from "./hooks/use-auth";
+export type { User, AuthConfig } from "./types";
+
+// ❌ DO NOT export internal helpers
+// export { hashPassword } from "./utils/crypto"; // KEEP PRIVATE
+```
+
+**Python:**
+```python
+# features/auth/__init__.py
+from .services.auth_service import AuthService
+from .types import User, AuthConfig
+
+__all__ = ["AuthService", "User", "AuthConfig"]
+```
+
+**PHP:**
+```php
+<?php
+// features/Auth/index.php
+namespace App\Features\Auth;
+
+// Export only public classes
+```
+
+### Import Rules (Universal)
 
 ```typescript
-// ✅ Public API exports
-// features/auth/index.ts
-export { LoginForm } from "./components/login-form";
-export { useAuth } from "./hooks/use-auth";
-export type { User, AuthState } from "./types";
+// ✅ ALWAYS: Import from public API
+import { AuthService } from "@/features/auth";
 
-// ✅ Other features import via public API
-import { LoginForm, useAuth } from "@/features/auth";
-
-// ❌ NEVER: Direct internal imports
-import { LoginForm } from "@/features/auth/components/login-form";
-import { hashPassword } from "@/features/auth/utils/crypto"; // Private!
+// ❌ NEVER: Import internals directly
+import { hashPassword } from "@/features/auth/utils/crypto";
+import { validateToken } from "@/features/auth/services/internal";
 ```
 
-## Shared Infrastructure
+---
 
-`features/shared/` contains reusable infrastructure, NOT business logic:
+## Shared Infrastructure Pattern
 
-```text
-features/shared/
-├── ui/               # Design system components
-├── components/       # Generic components (Layout, ErrorBoundary)
-├── hooks/           # Generic hooks (useDebounce, useLocalStorage)
-└── types/           # Shared type utilities
+`shared/` (or `common/`) contains reusable cross-cutting concerns, NOT business logic:
+
+**What belongs in shared/:**
+- ✅ Logging utilities
+- ✅ Configuration loaders
+- ✅ Generic error classes
+- ✅ Date/time utilities
+- ✅ Retry logic, circuit breakers
+- ✅ UI components (for frontend): Button, Input, Modal
+
+**What does NOT belong in shared/:**
+- ❌ Business logic (`calculateTax` → belongs in `features/billing/`)
+- ❌ Domain-specific utilities (`validateEmail` → belongs in `features/auth/`)
+- ❌ Feature-specific types (`User` → belongs in `features/auth/types`)
+
+```
+shared/
+├── logging/          # ✅ Generic logger
+├── config/           # ✅ Config loader
+├── errors/           # ✅ Base error classes
+└── time/             # ✅ Clock, date utils
+
+// ❌ WRONG:
+shared/utils/calculate-tax.ts      # Move to features/billing/
+shared/hooks/use-user-profile.ts   # Move to features/auth/
 ```
 
-**Rules:**
+---
 
-```text
-// ✅ Infrastructure (no business logic)
-features / shared / ui / button.tsx;
-features / shared / hooks / use - debounce.ts;
+## Path Aliases (Language-Specific Config)
 
-// ❌ Business logic (belongs in feature)
-features / shared / utils / calculate - tax.ts; // Move to features/billing/
-features / shared / hooks / use - user - profile.ts; // Move to features/auth/
-```
-
-## Import Aliases
-
-### Configuration
+### TypeScript (tsconfig.json)
 
 ```json
-// tsconfig.json
 {
   "compilerOptions": {
     "baseUrl": ".",
@@ -151,97 +254,92 @@ features / shared / hooks / use - user - profile.ts; // Move to features/auth/
 }
 ```
 
-### Usage
+### Python (pyproject.toml)
 
-```typescript
-// ✅ ALWAYS: Use alias for cross-module imports
-import { Button } from "@/features/shared/ui/button";
-import { useAuth } from "@/features/auth";
-
-// ✅ OK: Relative imports within same feature
-import { LoginForm } from "./components/login-form";
-
-// ❌ NEVER: Deep relative imports
-import { Button } from "../../../../features/shared/ui/button";
+```toml
+[tool.pytest.ini_options]
+pythonpath = ["src"]
 ```
 
-## Architectural Patterns
+### PHP (composer.json)
 
-Choose the architecture based on project complexity:
+```json
+{
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  }
+}
+```
 
-### 1. Simple Feature-Based (Default)
+---
 
-Use the structure shown above. Suitable for most projects.
+## Naming Conventions
 
-### 2. Domain-Driven Design (DDD)
+| Element | Convention | Example | Notes |
+|---------|-----------|---------|-------|
+| Files/Folders | `kebab-case` | `user-service.ts`, `auth-module/` | Python: `snake_case` |
+| Components/Classes | `PascalCase` | `UserService`, `AuthConfig` | All languages |
+| Functions/Variables | `camelCase` | `getUserData()`, `userId` | Python: `snake_case` |
+| Constants | `UPPER_SNAKE_CASE` | `MAX_RETRY_COUNT` | All languages |
 
-For complex business logic with rich domain models:
+---
 
-**When to use:**
+## Anti-Patterns (Universal)
 
-- Complex business rules and invariants
-- Multiple bounded contexts
-- Need for domain events
-- Large team requiring clear boundaries
+### ❌ God Folders
 
-**Implementation:** See [reference/ddd-rules.md](reference/ddd-rules.md) for complete DDD structure, rules, and patterns.
-
-## Anti-Patterns to Avoid
-
-### 1. God Folders
-
-```text
-// ❌ Everything dumped in utils
-src/utils/
+```
+src/utils/          # Everything dumped here
   auth.ts
   billing.ts
   user.ts
-  ...
-
-// ✅ Feature-specific utilities
-features/auth/utils/
-features/billing/utils/
 ```
 
-### 2. Type Soup
+### ✅ Feature-Specific
 
-```text
-// ❌ Giant type file
-src/types.ts (500+ lines)
-
-// ✅ Distributed types
-features/auth/types.ts
-features/billing/types.ts
+```
+src/features/
+  auth/utils/       # Clear ownership
+  billing/utils/    # Isolated
 ```
 
-### 3. Cross-Feature Coupling
+---
+
+### ❌ Type Soup
+
+```
+src/types.ts        # 500+ lines of unrelated types
+```
+
+### ✅ Distributed Types
+
+```
+src/features/
+  auth/types.ts
+  billing/types.ts
+```
+
+---
+
+### ❌ Cross-Feature Coupling
 
 ```typescript
-// ❌ Feature coupling
+// Importing internals
 import { getUserEmail } from "@/features/auth/utils/user";
+```
 
-// ✅ Use public API
+### ✅ Public API
+
+```typescript
+// Using public interface
 import { getUserEmail } from "@/features/auth";
 ```
 
-### 4. Business Logic in App Router
+---
 
-```typescript
-// ❌ Logic in app/
-export default async function Dashboard() {
-  const user = await prisma.user.findUnique(...);
-  const total = invoices.reduce((sum, inv) => sum + inv.amount, 0);
-  return <div>{total}</div>;
-}
-
-// ✅ Logic in feature
-export default async function Dashboard() {
-  const total = await getPendingTotal(userId);
-  return <div>{total}</div>;
-}
-```
-
-## Migration Strategy
+## Migration Strategy (Universal)
 
 ### Step 1: Audit
 
@@ -256,49 +354,34 @@ grep -r "import.*\.\./\.\./\.\." src/
 ### Step 2: Create Structure
 
 ```bash
-# Create feature manually
-mkdir -p src/features/<feature-name>/{components,hooks,actions,types,utils}
-touch src/features/<feature-name>/index.ts
-touch src/features/<feature-name>/routes.ts
-
-# Or create shared infrastructure
-mkdir -p src/features/shared/{ui,components,hooks,types}
+# Generic structure (adjust extensions for your language)
+mkdir -p src/features/<feature-name>/{api,services,models,types,utils}
+touch src/features/<feature-name>/index.<ext>
 ```
 
 ### Step 3: Move Files
 
-```bash
-# Move feature code
-mv src/components/login-form.tsx src/features/auth/components/
-mv src/hooks/use-auth.ts src/features/auth/hooks/
-```
+Move files from scattered locations to their respective features.
 
 ### Step 4: Update Imports
 
-```bash
-# Update to use @/ alias
-find src -name "*.ts" -o -name "*.tsx" | xargs sed -i '' 's|../../..|@|g'
-```
+Replace relative imports with alias imports.
 
 ### Step 5: Create Public APIs
 
-```typescript
-// features/auth/index.ts
-export { LoginForm } from "./components/login-form";
-export { useAuth } from "./hooks/use-auth";
-export type { User } from "./types";
-```
+Export only public interfaces in `index.<ext>` files.
+
+---
 
 ## Commands
 
 ```bash
-# Create new feature structure
-mkdir -p src/features/<feature-name>/{components,hooks,actions,types,utils}
+# Create feature structure (TypeScript)
+mkdir -p src/features/<feature-name>/{api,services,models,types,utils}
 touch src/features/<feature-name>/index.ts
-touch src/features/<feature-name>/routes.ts
 
 # Create shared infrastructure
-mkdir -p src/features/shared/{ui,components,hooks,types}
+mkdir -p src/shared/{logging,config,errors}
 
 # Audit existing structure
 find src -name "utils" -type d
@@ -306,11 +389,12 @@ grep -r "import.*\.\./\.\./\.\." src/
 
 # Find cross-feature imports (audit)
 grep -r "import.*@/features/.*/.*/" src/features/
-
-# Find deep relative imports
-grep -r "import.*\.\./\.\./\.\." src/
 ```
+
+---
 
 ## Resources
 
-- **DDD Architecture**: See [reference/ddd-rules.md](reference/ddd-rules.md) for Domain-Driven Design patterns
+- **DDD Architecture**: [reference/ddd-rules.md](reference/ddd-rules.md) - Universal DDD patterns
+- **Next.js Specifics**: [reference/nextjs-patterns.md](reference/nextjs-patterns.md) - App Router, RSC, components
+- **Node.js Specifics**: [reference/node-cli-patterns.md](reference/node-cli-patterns.md) - CLI, APIs, services

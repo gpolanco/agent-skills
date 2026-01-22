@@ -3,13 +3,31 @@ name: zod-4
 description: >
   Guides AI agents in using Zod v4 for runtime validation and TypeScript type inference.
   Trigger: Working with schema validation, form validation, API validation, or zod imports.
+  REQUIRES: zod@^4.0.0 (install explicitly: pnpm add zod@^4.0.0)
 license: Apache-2.0
 metadata:
   author: devcontext
-  version: "1.0.0"
+  version: "1.1.0"
   scope: [root]
   auto_invoke: "Creating Zod schemas"
 allowed-tools: Read
+---
+
+# ⚠️ VERSION REQUIREMENT
+
+**This skill requires Zod v4.x. If installing fresh, use:**
+
+```bash
+pnpm add zod@^4.0.0
+```
+
+**If you're not sure which version is installed:**
+```bash
+pnpm list zod
+```
+
+**If v3 is installed**, see "Zod v4 Migration Notes" section for breaking changes.
+
 ---
 
 ## When to Use
@@ -304,11 +322,44 @@ const data = schema.parse(input); // Already typed as User
 
 ---
 
+## Prerequisites
+
+**CRITICAL**: This skill is for **Zod v4.x** specifically.
+
+### Check Your Version
+
+```bash
+# Check installed version
+pnpm list zod
+# or
+npm list zod
+```
+
+### Install Zod v4
+
+```bash
+# Install Zod v4 explicitly
+pnpm add zod@^4.0.0
+
+# Or with npm
+npm install zod@^4.0.0
+
+# Or with yarn
+yarn add zod@^4.0.0
+```
+
+**If you have v3 installed**: See "Zod v4 Migration Notes" section below for breaking changes.
+
+---
+
 ## Commands
 
 ```bash
-# Install Zod v4
-pnpm add zod
+# Install Zod v4 (EXPLICIT VERSION)
+pnpm add zod@^4.0.0
+
+# Verify installed version
+pnpm list zod
 
 # Type check
 pnpm tsc --noEmit

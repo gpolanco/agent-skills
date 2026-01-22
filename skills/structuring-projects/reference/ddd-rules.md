@@ -2,6 +2,27 @@
 
 This reference defines **WHERE** to place DDD components, not HOW to implement them.
 
+---
+
+## ⚠️ Terminology Note
+
+**IMPORTANT**: In DDD, the term `application` refers to the **Use Cases layer**, NOT entry points.
+
+```
+application/     # Use cases layer (orchestration)
+  services/      # Application services
+
+app/             # Entry points (CLI, server bootstrap)
+  cli/
+  bootstrap.ts
+```
+
+**Do NOT confuse with Next.js** where `app/` = App Router (routing layer).
+
+See [node-cli-patterns.md](node-cli-patterns.md) for detailed explanation of entry points.
+
+---
+
 ## When to Use DDD Structure
 
 Use DDD organization when:
@@ -33,7 +54,7 @@ Use when you have **one application** with complex domain logic.
 src/
   features/
     core/
-      app/                    # Application layer (use cases)
+      application/            # Application layer (use cases)
         services/
           *.service.ts       # Use case implementations
 
@@ -42,7 +63,7 @@ src/
           *.ts
         errors/
           *.error.ts         # Domain exceptions
-        models/
+        entities/
           *.ts               # Entities (User, Order, etc.)
         repositories/
           *.repository.ts    # Repository interfaces ONLY
@@ -51,7 +72,7 @@ src/
         value-objects/
           *.ts               # Value objects (Email, UserId, etc.)
 
-      infra/                  # Infrastructure layer
+      infrastructure/         # Infrastructure layer
         db/
           schema.ts          # Database schema
           client.ts
@@ -59,36 +80,45 @@ src/
           *.mapper.ts        # Domain ↔ Persistence
         repositories/
           *.repository.ts    # Repository implementations
+  
+  app/                        # Entry points (CLI, server)
+    cli/
+      commands/
+    bootstrap.ts
 ```
+
+**Note**: `application/` = Use cases layer, `app/` = Entry points (see terminology note above)
 
 ### Layer Rules (Single Repo)
 
 ```text
-app/     → domain/  (orchestrates use cases)
-         ← infra/   (uses repositories)
+application/  → domain/      (orchestrates use cases)
+              ← infrastructure/  (uses repositories)
 
-domain/  → NOTHING  (pure business logic, no external deps)
+domain/       → NOTHING      (pure business logic, no external deps)
 
-infra/   → domain/  (implements domain interfaces)
+infrastructure/ → domain/    (implements domain interfaces)
+
+app/          → application/ + infrastructure/  (wires dependencies)
 ```
 
 ### Import Examples (Single Repo)
 
 ```typescript
-// ✅ App layer
+// ✅ Application layer
 import { UserRepository } from "@/features/core/domain/repositories/user-repository";
-import { User } from "@/features/core/domain/models/user";
+import { User } from "@/features/core/domain/entities/user";
 
-// ✅ Infra layer
+// ✅ Infrastructure layer
 import { UserRepository } from "@/features/core/domain/repositories/user-repository";
-import { User } from "@/features/core/domain/models/user";
+import { User } from "@/features/core/domain/entities/user";
 
 // ✅ Domain layer
 import { Email } from "./value-objects/email";
 import { UserId } from "./value-objects/user-id";
 
-// ❌ Domain importing infra
-import { PrismaClient } from "@/features/core/infra/db/client"; // NEVER
+// ❌ Domain importing infrastructure
+import { PrismaClient } from "@/features/core/infrastructure/db/client"; // NEVER
 ```
 
 ---
@@ -263,24 +293,24 @@ import { PrismaClient } from "@myapp/infrastructure/persistence/prisma/client"; 
 - Domain-specific exceptions
 - **Files**: `user-errors.ts`, `order-errors.ts`
 
-### `app/services/`
+### `application/services/`
 
 - Use cases / application services
-- Orchestrates domain + infra
+- Orchestrates domain + infrastructure
 - **Files**: `create-user-service.ts`, `update-order-service.ts`
 
-### `infra/db/`
+### `infrastructure/db/`
 
 - Database schema
 - Database client/connection
 - **Files**: `schema.prisma`, `client.ts`, `migrations/`
 
-### `infra/mappers/`
+### `infrastructure/mappers/`
 
 - Translate domain ↔ persistence
 - **Files**: `user-mapper.ts`, `order-mapper.ts`
 
-### `infra/repositories/`
+### `infrastructure/repositories/`
 
 - Repository **implementations**
 - Concrete persistence logic
@@ -325,7 +355,12 @@ packages/@myapp/domain/src/
 
 ```bash
 # Single repo
-mkdir -p src/features/core/{app/services,domain/{models,repositories,services,value-objects,errors},infra/{db,mappers,repositories}}
+mkdir -p src/features/core/application/services
+mkdir -p src/features/core/domain/{entities,repositories,services,value-objects,errors}
+mkdir -p src/features/core/infrastructure/{db,mappers,repositories}
+
+# Entry points
+mkdir -p src/app/cli/commands
 
 # Monorepo
 mkdir -p packages/@myapp/domain/src/{user,billing}
@@ -335,14 +370,14 @@ mkdir -p packages/@myapp/infrastructure/src/{persistence,http,messaging}
 ### Step 2: Move existing code
 
 ```bash
-# Move models
-mv src/features/auth/types/user.ts src/features/core/domain/models/user.ts
+# Move entities
+mv src/features/auth/types/user.ts src/features/core/domain/entities/user.ts
 
 # Move repository interfaces
 mv src/features/auth/repositories/user-repository.ts src/features/core/domain/repositories/
 
 # Move implementations
-mv src/features/auth/repositories/prisma-user-repository.ts src/features/core/infra/repositories/
+mv src/features/auth/repositories/prisma-user-repository.ts src/features/core/infrastructure/repositories/
 ```
 
 ### Step 3: Update imports
@@ -367,19 +402,19 @@ Follow the layer dependency rules above.
 ### ❌ Domain importing Infrastructure
 
 ```typescript
-// domain/models/user.ts
-import { prisma } from "@/features/core/infra/db/client"; // NEVER
+// domain/entities/user.ts
+import { prisma } from "@/features/core/infrastructure/db/client"; // NEVER
 ```
 
 ### ❌ Mixing layers in same file
 
 ```typescript
-// Bad: domain + infra in one file
+// Bad: domain + infrastructure in one file
 export class User {
   /* entity */
 }
 export class PrismaUserRepository {
-  /* infra */
+  /* infrastructure */
 }
 ```
 
@@ -391,11 +426,32 @@ domain/
     prisma-user-repository.ts  # ❌ This is infrastructure!
 ```
 
+**Correct placement:**
+```text
+infrastructure/
+  repositories/
+    prisma-user-repository.ts  # ✅ Infrastructure implementations go here
+```
+
 ### ❌ Framework code in domain
 
 ```typescript
-// domain/models/user.ts
+// domain/entities/user.ts
 import { NextRequest } from "next/server"; // ❌ Framework in domain
+```
+
+### ❌ Confusing `app/` with `application/`
+
+```text
+❌ BAD:
+src/features/core/
+  app/              # AMBIGUOUS - entry point or use cases?
+    
+✅ GOOD:
+src/features/core/
+  application/      # Use cases layer (DDD terminology)
+
+src/app/            # Entry points (CLI, bootstrap)
 ```
 
 ---
