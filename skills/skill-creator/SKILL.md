@@ -7,7 +7,7 @@ license: Apache-2.0
 metadata:
   type: hybrid
   author: devcontext
-  version: "2.1.0"
+  version: "2.2.0"
   scope: [root]
   auto_invoke: false  # Meta-skill: Manual invocation preferred with @skill-creator
 allowed-tools: [Read, Write, Bash]
@@ -19,8 +19,8 @@ allowed-tools: [Read, Write, Bash]
 
 * **Before creating any skill**, you MUST read: `reference/skill-designer-core.md`.
 * Use the canonical template: `assets/SKILL-TEMPLATE.md`.
-* Apply the **Quality Gate** checklist from the designer core before finishing.
-* Keep scope tight: **one skill = one job**.
+* Enforce **Proof-of-Compliance** BEFORE writing any skill files.
+* Keep scope tight: **one skill = one job**. If it mixes responsibilities → **split**.
 * Produce only skill artifacts (no app/product code): `SKILL.md`, `reference/`, `assets/`, `scripts/`.
 
 ---
@@ -37,6 +37,29 @@ If you haven’t read them, stop and say:
 ```
 Skill creation blocked: designer core and template not loaded.
 ```
+
+---
+
+## 🧾 Proof-of-Compliance (MANDATORY)
+
+Before creating or editing any skill artifacts, you MUST output this block **as the first visible output**:
+
+```
+Creator compliance:
+- Reusability (≥ 3 uses): YES/NO + 1-line justification
+- Skill type: knowledge | tool | hybrid
+- Single responsibility: <one sentence>
+- Scope boundaries:
+  - In scope: <bullets>
+  - Out of scope: <bullets>
+- Cross-references (do not duplicate): <skill list>
+- Split decision: NONE | SPLIT INTO <skill-a>, <skill-b>
+```
+
+Rules:
+
+* If Reusability = NO → do not create a skill. Provide a snippet/checklist instead.
+* If Split decision ≠ NONE → create multiple skills instead of one.
 
 ---
 
@@ -84,6 +107,10 @@ Do NOT use when:
 * **Minimum permissions**: request only the tools needed for the skill type.
 * **Cross-references**: point to existing skills instead of duplicating their scope.
 
+**Hard split rule (common failure mode):**
+
+* If a skill mixes **framework mechanics** (e.g. Next.js routing/runtime) and **project policy/contract** (e.g. API envelopes, auth rules, CORS policy), you MUST split into separate skills.
+
 ### NEVER
 
 * Define component structure (belongs to `react-19`).
@@ -108,9 +135,9 @@ Does it teach rules AND automate? → Hybrid skill (allowed-tools: Read, Write, 
 
 ### Phase 1 — Validate
 
-* Clarify what problem it solves.
+* Clarify the job-to-be-done.
 * Confirm ≥ 3 uses.
-* Ensure single responsibility.
+* Enforce single responsibility (split if needed).
 
 ### Phase 2 — Scaffold
 
@@ -124,17 +151,26 @@ Create:
 ### Phase 3 — Draft
 
 * Populate `SKILL.md` from `assets/SKILL-TEMPLATE.md`.
-* Keep the body as an orchestrator: When to Use → Critical Patterns → Decision Tree → Actions (if tool/hybrid) → Resources.
+* Keep the body as an orchestrator: TL;DR → When to Use → Outputs → Critical Patterns → Decision Tree → Actions (if tool/hybrid) → Resources.
+* Add cross-references instead of duplicating other skills.
 
 ### Phase 4 — Quality Gate (MANDATORY)
 
-Run the checklist from `reference/skill-designer-core.md`:
+Run the checklist from `reference/skill-designer-core.md`.
 
-* Typology validation
-* Frontmatter validation
-* Content rules
-* Progressive disclosure
-* Cross-skill boundaries
+Additionally, enforce these objective checks (prefer via Bash):
+
+* **No external URLs in `reference/`** (reject if found):
+
+```bash
+grep -RInE "https?://" reference/ && echo "FAIL: external URLs found in reference/" && exit 1 || true
+```
+
+* **`SKILL.md` length** (< 500 lines):
+
+```bash
+wc -l SKILL.md
+```
 
 If any item fails, fix it before completion.
 

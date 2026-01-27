@@ -162,19 +162,19 @@ allowed-tools: Read # Minimum required permissions
 
 ---
 
-## 3. SKILL.md File Structure
+## 3. `SKILL.md` File Structure
 
-The body acts as an orchestrator and must include:
+The body acts as an **orchestrator** and must include:
 
-### A. `When to Use` (Mandatory)
+### A. Section: `When to Use` (Mandatory)
 
-### B. `Critical Patterns` (Mandatory)
+### B. Section: `Critical Patterns` (Mandatory)
 
-### C. `Decision Tree` (Recommended)
+### C. Section: `Decision Tree` (Recommended)
 
-### D. `Actions` (Tool/Hybrid only)
+### D. Section: `Actions` (Tool/Hybrid only)
 
-### E. `Resources` (Mandatory)
+### E. Section: `Resources` (Mandatory)
 
 **IMPORTANT:** Local files only, no external URLs in `reference/`.
 
@@ -195,16 +195,16 @@ The body acts as an orchestrator and must include:
 
 ---
 
-## 5. Content Rules (Single Responsibility)
+## 4.5 Content Rules (Single Responsibility)
 
 Each skill must respect responsibility boundaries. Don't duplicate or overlap with other skills.
 
 ### NEVER in a Skill
 
-* No component definitions: Only show API/method patterns. Let `react-19` handle component structure.
-* No file structure decisions: Let `structuring-projects` handle where files go.
-* No styling decisions: Let `tailwind-4` handle CSS patterns.
-* No duplicate content: If it's in `reference/`, don't repeat in `SKILL.md`.
+* **No component definitions**: Only show API/method patterns. Let `react-19` handle component structure.
+* **No file structure decisions**: Let `structuring-projects` handle where files go.
+* **No styling decisions**: Let `tailwind-4` handle CSS patterns.
+* **No duplicate content**: If it's in `reference/`, don't repeat in `SKILL.md`.
 
 ### Cross-Skill References
 
@@ -219,57 +219,64 @@ When a skill depends on another, add a note:
 
 ---
 
-## 6. Validation Checklist (Quality Gate)
+## 5. Validation Checklist (Quality Gate)
 
 The agent must verify these points before completion:
 
 ### Typology Validation
 
-* [ ] Knowledge: `allowed-tools: Read` and markdown-only structure.
-* [ ] Tool: `scripts/` exists and `allowed-tools` includes `Bash`.
-* [ ] Hybrid: both markdown + scripts.
+* [ ] **Knowledge**: Has `reference/` with markdown and `allowed-tools: Read`?
+* [ ] **Tool**: Has executable `scripts/` and `allowed-tools` includes `Bash`?
+* [ ] **Hybrid**: Has both?
 
 ### Frontmatter
 
-* [ ] Semantic versioning (X.Y.Z)
-* [ ] Explicit Trigger in description
-* [ ] Minimum required permissions
+* [ ] **Complete Metadata**: type (optional), author, version (X.Y.Z), scope, auto_invoke.
+* [ ] **Explicit Trigger**: Description includes "Trigger: ...".
+* [ ] **Minimum Permissions**: Only those necessary for the type.
 
 ### Content
 
-* [ ] `SKILL.md` < 500 lines
-* [ ] ALWAYS/NEVER defined
-* [ ] No external URLs in `reference/`
-* [ ] Single responsibility
-* [ ] Cross-skill boundaries respected
+* [ ] **SKILL.md < 500 lines**: Progressive Disclosure applied.
+* [ ] **ALWAYS/NEVER defined**: Clear Critical Patterns.
+* [ ] **Local References**: No external URLs in `reference/`.
+* [ ] **Single Responsibility**: One well-defined job.
 
 ### Scripts (Tool/Hybrid only)
 
-* [ ] Robust error handling
-* [ ] Deterministic behavior
-* [ ] Documented execution in `SKILL.md`
+* [ ] **Robustness**: Scripts handle their own errors.
+* [ ] **Documentation**: `SKILL.md` explains how to execute.
+* [ ] **Determinism**: Scripts solve, don’t punt.
 
 ### Reusability
 
-* [ ] Will be used ≥ 3 times
-* [ ] Clear trigger
+* [ ] **≥ 3 Uses**: The skill will be used at least 3 times.
+* [ ] **Clear Trigger**: When to invoke can be clearly described.
 
 ---
 
-## 7. Skill Naming
+## 6. Skill Naming
 
 **Format:** `verb-noun` (kebab-case)
 
-Framework/library skills may use the library name with version, e.g. `react-19`, `zod-4`, `tailwind-4`.
+Framework/library skills can use the name directly if they are pure Knowledge skills:
+
+* `react-19`
+* `zod-4`
+* `tailwind-4`
 
 ---
 
-## 8. Summary for the Creator Agent
+## 7. Summary for the Creator Agent
 
-Your goal: Package experience.
+Your goal: **Package experience**
 
-* If it is knowing something → Knowledge skill.
-* If it is doing something → Tool skill.
-* If it requires both → Hybrid skill.
+* If the experience is **knowing something** → Knowledge skill (Markdown).
+* If the experience is **doing something** → Tool skill (Scripts).
+* If it requires **both** → Hybrid skill (Markdown + Scripts).
+
+**Key Principle:** A skill without scripts is not incomplete — it can be a valuable Knowledge Skill.
+
+---
 
 **Last Updated:** 2026-01-22

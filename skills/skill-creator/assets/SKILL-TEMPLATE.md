@@ -1,26 +1,23 @@
 ---
-name: { skill-name }
+name: <skill-name>
 description: >
-  {Brief description of what this skill enables}.
-  Trigger: {When the AI should load this skill - be specific}.
+  <Clear description of what this skill enforces or automates.>
+  Trigger: Use when <explicit condition>.
 license: Apache-2.0
 metadata:
   type: {knowledge|tool|hybrid} # OPTIONAL (can be inferred from allowed-tools)
-  author: { author-name }
+  author: <team | org>
   version: "1.0.0"
   scope: [root]
   auto_invoke: false
 allowed-tools: Read
 ---
 
-# {Skill Title}
+# <Skill Name>
 
-## TL;DR (REQUIRED)
+## TL;DR
 
-* {One-line purpose}
-* {What it changes / produces}
-* {Hard constraint 1}
-* {Hard constraint 2}
+One paragraph summary explaining **what problem this skill solves** and **why it exists**.
 
 ---
 
@@ -28,21 +25,24 @@ allowed-tools: Read
 
 Use this skill when:
 
-* {Condition 1}
-* {Condition 2}
-* {Condition 3}
+* <Condition 1>
+* <Condition 2>
+
+Do NOT use this skill when:
+
+* <Anti-condition>
 
 ---
 
-## Outputs (Allowed Changes)
+## Scope
 
-### ✅ Allowed
+### In scope
 
-* {Files/directories the agent may create or edit}
+* <Explicitly covered responsibility>
 
-### ❌ Not allowed
+### Out of scope
 
-* {Files/directories the agent must never touch}
+* <Explicitly excluded responsibility>
 
 ---
 
@@ -50,68 +50,41 @@ Use this skill when:
 
 ### ALWAYS
 
-* {Rule that must always be followed}
-* {Another always rule}
-* {Important pattern to use}
+* <Rule that must always be followed>
 
 ### NEVER
 
-* {Anti-pattern to avoid}
-* {Another thing to never do}
-* {Common mistake to prevent}
-
-### DEFAULTS
-
-* {Default convention 1}
-* {Default convention 2}
+* <Rule that must never be violated>
 
 ---
 
 ## Decision Tree
 
-```
-{Question 1}? → {Action A}
-{Question 2}? → {Action B}
-Otherwise     → {Default action}
-```
-
----
-
-## Actions (Tool/Hybrid only)
-
-> Omit this section for Knowledge-only skills.
-
-```bash
-{command 1}  # {description}
-{command 2}  # {description}
+```text
+If <condition> → do X
+Else if <condition> → do Y
+Else → do Z
 ```
 
 ---
 
-## Code Examples
+## Actions
 
-> Include code ONLY when it is the essence. Keep examples minimal.
+> Only include this section for **Tool** or **Hybrid** skills.
 
-### Example 1: {Description}
+* Step 1: <What the agent should do>
+* Step 2: <Expected outcome>
 
-```{language}
-// ✅ DO: {Good pattern explanation}
-{good example code}
+---
 
-// ❌ DON'T: {Bad pattern explanation}
-{bad example code}
-```
+## Cross-references
 
-### Example 2: {Description}
-
-```{language}
-{minimal, focused example}
-```
+* None
 
 ---
 
 ## Resources
 
-* **Advanced Patterns**: [reference/advanced.md](reference/advanced.md)
-* **Migration Guide**: [reference/migration.md](reference/migration.md)
-* **Related Skills**: {e.g., react-19, tailwind-4, structuring-projects}
+* See `reference/` directory for detailed documentation.
+
+<!-- Skill type inferred from allowed-tools -->
