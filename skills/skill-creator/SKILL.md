@@ -1,97 +1,150 @@
 ---
 name: skill-creator
 description: >
-  Orchestrates the design and creation of high-quality AI Skills.
-  Trigger: Use when the user asks to "create a skill", "standardize a workflow", "package a pattern", or "generate a rule set".
+  Create high-quality AI Skills (knowledge, tool, or hybrid) using the local standards and templates.
+  Trigger: Use when the user asks to create a new skill, package a repeated pattern (≥ 3 uses), standardize a workflow, or generate a reusable rule set.
 license: Apache-2.0
 metadata:
+  type: hybrid
   author: devcontext
-  version: "2.0.0"
+  version: "2.1.0"
   scope: [root]
   auto_invoke: false  # Meta-skill: Manual invocation preferred with @skill-creator
-allowed-tools: Read, Edit, Write, Glob, Grep, Bash, WebFetch, WebSearch, Task
+allowed-tools: [Read, Write, Bash]
 ---
 
-# Skill Creator
+# Skill Creator 🧱
 
-## 🚨 CRITICAL: Reference Files are MANDATORY
+## TL;DR (REQUIRED)
 
-**This SKILL.md provides OVERVIEW only. For EXACT patterns:**
-
-| Task | MANDATORY Reading |
-|------|-------------------|
-| **Skill Design Standards** | ⚠️ [reference/skill-designer-core.md](reference/skill-designer-core.md) |
-
-**⚠️ DO NOT generate a new skill without reading [skill-designer-core.md](reference/skill-designer-core.md) FIRST.**
+* **Before creating any skill**, you MUST read: `reference/skill-designer-core.md`.
+* Use the canonical template: `assets/SKILL-TEMPLATE.md`.
+* Apply the **Quality Gate** checklist from the designer core before finishing.
+* Keep scope tight: **one skill = one job**.
+* Produce only skill artifacts (no app/product code): `SKILL.md`, `reference/`, `assets/`, `scripts/`.
 
 ---
 
-## When to Use
+## 🚨 Mandatory reading (Non-negotiable)
 
-Use this skill to transform raw requests into structured `agent-skills` folders when:
+You MUST read these files in this order before generating anything:
 
-- A pattern repeats ≥ 3 times (Rule R1).
-- The project needs specific "guardrails" for AI behavior.
-- You need to package automation scripts with documentation.
+1. `reference/skill-designer-core.md`
+2. `assets/SKILL-TEMPLATE.md`
 
-**Do NOT use when:**
+If you haven’t read them, stop and say:
 
-- The request is for a one-off task (create a snippet instead).
-- The documentation already exists (just reference it).
-- The scope is too broad (e.g., "database-skill"). Split it first.
+```
+Skill creation blocked: designer core and template not loaded.
+```
 
-## Critical Patterns (ALWAYS / NEVER)
+---
 
-You must enforce the design standards during generation:
+## When to use
+
+Use this skill to transform a request into a structured skill folder when:
+
+* A pattern repeats **≥ 3 times**.
+* The project needs explicit guardrails for AI behavior.
+* The request is deterministic enough to package (knowledge and/or automation).
+
+Do NOT use when:
+
+* It’s a one-off task (make a snippet instead).
+* The documentation already exists (reference it).
+* The scope is too broad (split first).
+
+---
+
+## Outputs (what you are allowed to change)
+
+### ✅ Allowed
+
+* Create a new skill folder under the local skills directory, e.g.:
+
+  * `.agent/skills/<skill-name>/...` (preferred in consumer repos)
+  * `skills/<skill-name>/...` (when the repo uses `skills/`)
+
+### ❌ Not allowed
+
+* Modifying product/app source code while “creating a skill”.
+* Modifying other skills unless explicitly requested.
+* Adding external URLs inside `reference/` files.
+
+---
+
+## Critical patterns
 
 ### ALWAYS
 
-- **Reusability Filter**: Ask "Will this be used at least 3 times?". If no, reject.
-- **Single Responsibility**: One skill = One job. Split monolithic requests.
-- **Progressive Disclosure**: `SKILL.md` < 500 lines. Move heavy content to `reference/`.
-- **Add "When to use"** context for each code example.
-- **Add cross-references** to related skills (e.g., "For React patterns → See `react-19`").
+* **Reusability filter**: confirm it will be used ≥ 3 times. If not, reject.
+* **Single responsibility**: one skill = one job. Split monoliths.
+* **Progressive disclosure**: keep `SKILL.md` < 500 lines; move deep content to `reference/`.
+* **Explicit trigger**: description MUST include an actionable Trigger.
+* **Minimum permissions**: request only the tools needed for the skill type.
+* **Cross-references**: point to existing skills instead of duplicating their scope.
 
 ### NEVER
 
-- **Never define component structure** - That's `react-19`'s responsibility.
-- **Never define file/folder locations** - That's `structuring-projects`'s responsibility.
-- **Never define styling patterns** - That's `tailwind-4`'s responsibility.
-- **Never duplicate content** between `SKILL.md` and `reference/`.
-- **Never use external URLs** in `reference/`. Copy content locally.
-- **Never generate a skill** without a specific `Trigger` in the description.
+* Define component structure (belongs to `react-19`).
+* Define file/folder placement decisions (belongs to `structuring-projects`).
+* Define styling patterns (belongs to `tailwind-4`).
+* Duplicate content between `SKILL.md` and `reference/`.
+* Use external URLs in `reference/` (copy locally).
 
 ---
 
-## 🚫 Critical Anti-Patterns
+## Decision tree (skill type)
 
-- **DO NOT** generate a skill WITHOUT a specific `Trigger`.
-- **DO NOT** define file/folder locations in the skill → let `structuring-projects` handle that.
-- **DO NOT** duplicate content between `SKILL.md` and `reference/`.
-- **DO NOT** use external URLs in `reference/` → always copy content locally.
+```
+Does it only teach rules/patterns? → Knowledge skill (allowed-tools: Read)
+Does it automate a deterministic task? → Tool skill (allowed-tools: Read, Write, Bash)
+Does it teach rules AND automate? → Hybrid skill (allowed-tools: Read, Write, Bash)
+```
 
 ---
 
-## Workflow (The Factory Process)
+## Workflow (Factory Process)
 
-1. **Analysis & Validation**:
-   - Analyze the user request.
-   - **CRITICAL**: Read `reference/skill-designer-core.md` to load the validation rules into context.
-   - Validate if it meets Rule R1 (Reusability) and R3 (Responsibility).
+### Phase 1 — Validate
 
-2. **Scaffolding**:
-   - Create the folder structure: `name-of-skill/` (kebab-case).
-   - Create subfolders: `assets/`, `reference/`, `scripts/`.
+* Clarify what problem it solves.
+* Confirm ≥ 3 uses.
+* Ensure single responsibility.
 
-3. **Drafting**:
-   - Read `assets/SKILL-TEMPLATE.md`.
-   - Populate the template. Ensure `metadata` and `allowed-tools` are correct based on the skill type (Knowledge vs Tool vs Hybrid).
+### Phase 2 — Scaffold
 
-4. **Quality Check**:
-   - Run the "Validation Checklist" found in `skill-designer-core.md`.
-   - Ensure strict Frontmatter compliance.
+Create:
 
-## Resources & References
+* `<skill-name>/SKILL.md`
+* `<skill-name>/reference/`
+* `<skill-name>/assets/`
+* `<skill-name>/scripts/` (tool/hybrid only)
 
-- **Design Standards**: See [reference/skill-designer-core.md](reference/skill-designer-core.md). _Read this before generating._
-- **Master Template**: See [assets/SKILL-TEMPLATE.md](assets/SKILL-TEMPLATE.md).
+### Phase 3 — Draft
+
+* Populate `SKILL.md` from `assets/SKILL-TEMPLATE.md`.
+* Keep the body as an orchestrator: When to Use → Critical Patterns → Decision Tree → Actions (if tool/hybrid) → Resources.
+
+### Phase 4 — Quality Gate (MANDATORY)
+
+Run the checklist from `reference/skill-designer-core.md`:
+
+* Typology validation
+* Frontmatter validation
+* Content rules
+* Progressive disclosure
+* Cross-skill boundaries
+
+If any item fails, fix it before completion.
+
+### Phase 5 — Activation hint
+
+When finished, recommend using `skill-integrator` to activate the new skill in `AGENTS.md`.
+
+---
+
+## Resources
+
+* **Design Standards**: `reference/skill-designer-core.md`
+* **Master Template**: `assets/SKILL-TEMPLATE.md`
