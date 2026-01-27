@@ -1,67 +1,100 @@
-# Skills as Context 🎯
+<div align="center">
 
-**Standardized AI Agent Skills for modern full-stack development.**
+# Skills as Context 🧠
 
-This repository provides a collection of [AI Agent Skills](https://agentskills.io) that teach AI assistants (Claude, Cursor, Antigravity) how to follow your project's architectural patterns and coding standards.
+**My Personal Collection of AI Agent Skills**
+
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+[![Standard](https://img.shields.io/badge/standard-Agent_Skills-purple.svg)](https://agentskills.io)
+[![Status](https://img.shields.io/badge/status-active-success.svg)](#)
+
+<p align="center">
+  <a href="#-quick-start">Quick Start</a> •
+  <a href="#-how-it-works">How It Works</a> •
+  <a href="#-catalog">Catalog</a>
+</p>
+
+</div>
 
 ---
 
-## 🚀 Quick Start (Transform Your Project)
+## ⚡️ Why Skills?
 
-Initialize the entire skills catalog in your project with one command:
+This repository houses the **coding standards, architectural patterns, and best practices** adapted specifically for **my projects**. It serves as persistent memory for my AI assistants (Claude, Cursor, Antigravity), ensuring they always work the way I do.
+
+| 🎯 **My Patterns** | ⚡️ **My Workflow** | 🛡️ **My Standards** |
+| :--- | :--- | :--- |
+| **No more quirks.** Agents use my exact preferred structure for Next.js and React. | **Zero friction.** I instantiate my standard features with single triggers. | **Consistency.** Every project adheres to my defined folder structures and naming conventions. |
+
+---
+
+## 🌊 How It Works
+
+```mermaid
+sequenceDiagram
+    participant U as Developer
+    participant A as AI Agent
+    participant S as Skills Repo
+
+    U->>A: "Create a new Next.js feature"
+    A->>S: Read skills/nextjs/SKILL.md
+    S-->>A: Load Patterns (App Router, Server Actions)
+    A->>A: Apply Context
+    A-->>U: Generates production-ready code
+```
+
+---
+
+## 🚀 Quick Start
+
+Transform your project in **30 seconds**. Run this command at your project root:
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/gpolanco/skills-as-context/main/templates/init-agent.sh | bash
 ```
 
-**Next Step**: Ask your AI assistant (Claude, Cursor, Antigravity):
+**That's it.** You now have a `.agent/skills` (or `skills/`) folder populated with the standard catalog.
 
-> "Use @skill-integrator to setup AGENTS.md for my project"
+### Next Steps
 
----
+1.  **Ask your AI**: `"Use @skill-integrator to configure this project."`
+2.  **Verify**: Check that `AGENTS.md` has been created.
+3.  **Code**: Start building with superpowers!
 
-## 📦 What's Inside?
-
-### ⚙️ Meta-Skills (The Orchestrators)
-
-- [**skill-integrator**](skills/skill-integrator): Analyzes your tech stack and auto-imports relevant skills.
-- [**skill-creator**](skills/skill-creator): Guides you in creating your own custom skills.
-
-### 📚 Generic Skills (The Catalog)
-
-| Skill                                                   | Description                                      | Status   |
-| :------------------------------------------------------ | :----------------------------------------------- | :------- |
-| [**structuring-projects**](skills/structuring-projects) | Universal patterns (Node.js, Next.js, Python, PHP) | ✅ Ready |
-| [**react-19**](skills/react-19)                         | React 19 + Compiler patterns                     | ✅ Ready |
-| [**nextjs**](skills/nextjs)                             | App Router & Server Components                   | ✅ Ready |
-| [**typescript**](skills/typescript)                     | Strict types & best practices                    | ✅ Ready |
-| [**zod-4**](skills/zod-4)                               | Validation patterns (requires zod@^4.0.0)        | ✅ Ready |
-| [**tailwind-4**](skills/tailwind-4)                     | Utility-first CSS patterns                       | ✅ Ready |
-| [**supabase**](skills/supabase)                         | Auth, RLS, and SSR best practices                | ✅ Ready |
-| [**forms**](skills/forms)                               | React Hook Form + Zod patterns                   | ✅ Ready |
-| [**testing-vitest**](skills/testing-vitest)             | Vitest testing patterns                          | ✅ Ready |
-
-👉 **[View Full Catalog →](skills/README.md)**
+> "Create a form using @forms"
+> "Refactor this component using @react-19"
+> "Add a database table using @supabase"
 
 ---
 
-## 🛠️ Why Use This?
+## 📦 Catalog
 
-1.  **Stop Re-typing Rules**: Don't waste time telling the AI to use kebab-case or Server Components in every chat.
-2.  **Enforce Architecture**: Ensure the AI places files in the right folders (DDD, Features).
-3.  **Bulk Initialized**: Get the entire community catalog locally in one script execution.
-4.  **Remote Orchestrated**: AI uses remote templates from GitHub as the source of truth for all configurations, ensuring your `AGENTS.md` is always up-to-date.
+### 🏗️ Meta-Skills (The Brains)
+
+| Skill | Description | Trigger |
+| :--- | :--- | :--- |
+| [**skill-integrator**](skills/skill-integrator) | 🧠 **Context Awareness.** Analyzes your tech stack and auto-loads relevant skills. | `"Setup project"` |
+| [**skill-creator**](skills/skill-creator) | 🏭 **Factory.** detailed guide to building your own high-quality skills. | `"Create a skill"` |
+
+### 📚 Generic Skills (The Knowledge)
+
+| Category | Skill | Description |
+| :--- | :--- | :--- |
+| **Core** | [**structuring-projects**](skills/structuring-projects) | Domain-Driven Design (DDD) & Feature-First architecture patterns. |
+| | [**typescript**](skills/typescript) | Strict type safety, proper interfaces, and modern TS features. |
+| **Frontend** | [**react-19**](skills/react-19) | React Compiler, Actions, and Server Components. |
+| | [**tailwind-4**](skills/tailwind-4) | Utility-first styling with the new Tailwind v4 engine. |
+| | [**forms**](skills/forms) | Type-safe forms with React Hook Form + Zod. |
+| **Backend** | [**nextjs**](skills/nextjs) | App Router, Server Actions, Middleware, and Caching. |
+| | [**supabase**](skills/supabase) | Row Level Security (RLS), Auth, and Database patterns. |
+| **Quality** | [**zod-4**](skills/zod-4) | Runtime validation schemas. |
+| | [**testing-vitest**](skills/testing-vitest) | Unit and integration testing strategies. |
+
+👉 **[Browse Full Catalog](skills/README.md)**
 
 ---
 
-## 🤝 Contributing
-
-Have a skill for a library you love?
-
-1. Open this repo with your AI.
-2. Use `@skill-creator` to build a new skill following our design guidelines.
-3. Submit a PR.
-
----
-
-_Made with ❤️ by [gpolanco](https://github.com/gpolanco)_
+<div align="center">
+  <p>Standardized by <a href="https://agentskills.io">AgentSkills.io</a></p>
+  <p><i>Empowering developers to build better, faster, and smarter.</i></p>
+</div>
