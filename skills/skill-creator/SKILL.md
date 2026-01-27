@@ -7,7 +7,7 @@ license: Apache-2.0
 metadata:
   type: hybrid
   author: devcontext
-  version: "2.2.0"
+  version: "2.4.0"
   scope: [root]
   auto_invoke: false  # Meta-skill: Manual invocation preferred with @skill-creator
 allowed-tools: [Read, Write, Bash]
@@ -17,11 +17,9 @@ allowed-tools: [Read, Write, Bash]
 
 ## TL;DR (REQUIRED)
 
-* **Before creating any skill**, you MUST read: `reference/skill-designer-core.md`.
-* Use the canonical template: `assets/SKILL-TEMPLATE.md`.
-* Enforce **Proof-of-Compliance** BEFORE writing any skill files.
+* **Before creating any skill**, you MUST read: `reference/skill-designer-core.md` and `assets/SKILL-TEMPLATE.md`.
+* You MUST output **Creator compliance** as the **first visible output**.
 * Keep scope tight: **one skill = one job**. If it mixes responsibilities → **split**.
-* Produce only skill artifacts (no app/product code): `SKILL.md`, `reference/`, `assets/`, `scripts/`.
 
 ---
 
@@ -40,9 +38,9 @@ Skill creation blocked: designer core and template not loaded.
 
 ---
 
-## 🧾 Proof-of-Compliance (MANDATORY)
+## 🧾 Creator compliance (MANDATORY)
 
-Before creating or editing any skill artifacts, you MUST output this block **as the first visible output**:
+You MUST output this block as the **first visible output** (before any narration, planning, tasks, or file edits):
 
 ```
 Creator compliance:
@@ -90,6 +88,7 @@ Do NOT use when:
 
 ### ❌ Not allowed
 
+* Creating repository-level planning artifacts like `task.md`, `implementation_plan.md`, or similar.
 * Modifying product/app source code while “creating a skill”.
 * Modifying other skills unless explicitly requested.
 * Adding external URLs inside `reference/` files.
@@ -135,6 +134,7 @@ Does it teach rules AND automate? → Hybrid skill (allowed-tools: Read, Write, 
 
 ### Phase 1 — Validate
 
+* Print Creator compliance.
 * Clarify the job-to-be-done.
 * Confirm ≥ 3 uses.
 * Enforce single responsibility (split if needed).
@@ -151,7 +151,7 @@ Create:
 ### Phase 3 — Draft
 
 * Populate `SKILL.md` from `assets/SKILL-TEMPLATE.md`.
-* Keep the body as an orchestrator: TL;DR → When to Use → Outputs → Critical Patterns → Decision Tree → Actions (if tool/hybrid) → Resources.
+* Keep the body as an orchestrator: TL;DR → When to Use → Outputs → Scope → Critical Patterns → Decision Tree → Actions (if tool/hybrid) → Cross-references → Resources.
 * Add cross-references instead of duplicating other skills.
 
 ### Phase 4 — Quality Gate (MANDATORY)

@@ -203,6 +203,17 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 
 ---
 
+## Skill Creation Contract
+
+Skills are created only via explicit invocation.
+
+To create or modify a skill, the user MUST invoke:
+@skill-creator
+
+If a request sounds like skill creation but @skill-creator is not used,
+the agent must ask for confirmation instead of proceeding.
+
+
 ## Common Commands
 
 ```bash
