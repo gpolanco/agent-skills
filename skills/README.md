@@ -146,20 +146,6 @@ cp skills/skill-creator/assets/SKILL-TEMPLATE.md skills/new-skill/SKILL.md
 
 ---
 
-## 🤝 Contributing
-
-Want to add a skill to this catalog?
-
-1. **Check reusability**: Will it be used ≥3 times?
-2. **Use skill-creator**: Follow `@skill-creator` guide
-3. **Validate quality**: Run the checklist
-4. **Test with AI**: Verify it works with Claude/Cursor
-5. **Submit PR**: Include skill + tests
-
-**[Contributing Guide →](../README.md#contributing)**
-
----
-
 ## 📖 Version History
 
 | Version | Date       | Changes                                      |
