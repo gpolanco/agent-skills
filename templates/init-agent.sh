@@ -13,7 +13,7 @@ REPO_NAME="skills-as-context"
 ZIP_URL="https://github.com/gpolanco/skills-as-context/archive/refs/heads/main.zip"
 TEMP_DIR=".skills_temp"
 
-echo -e "${BLUE}� Initializing Bulk AI Agent Skills...${NC}"
+echo -e "${BLUE}🧠 Initializing Bulk AI Agent Skills...${NC}"
 
 # 1. Download and Extract
 echo -e "${BLUE}📦 Downloading skills catalog from GitHub...${NC}"
@@ -40,6 +40,7 @@ echo -e "${BLUE}📝 Initializing AGENTS.md and skills/README.md from remote tem
 
 TEMPLATE_AGENTS="$TEMP_DIR/$EXTRACTED_FOLDER/templates/AGENTS.template.md"
 TEMPLATE_README="$TEMP_DIR/$EXTRACTED_FOLDER/templates/SKILLS_README.template.md"
+TEMPLATE_PLAN="$TEMP_DIR/$EXTRACTED_FOLDER/templates/plans/TEMPLATE.md"
 
 if [ ! -f "AGENTS.md" ]; then
     cp "$TEMPLATE_AGENTS" AGENTS.md
@@ -49,7 +50,44 @@ if [ ! -f "skills/README.md" ]; then
     cp "$TEMPLATE_README" skills/README.md
 fi
 
-# 4. Cleanup
+# 4. Initialize agent memory (docs/agent/)
+# Skip entirely if docs/agent/ already exists — it is live memory, never reset.
+if [ ! -d "docs/agent" ]; then
+    echo -e "${BLUE}🧠 Initializing agent memory...${NC}"
+
+    mkdir -p docs/agent/plans
+
+    # Copy plan template
+    if [ -f "$TEMPLATE_PLAN" ]; then
+        cp "$TEMPLATE_PLAN" docs/agent/plans/TEMPLATE.md
+    fi
+
+    # Create state.md
+    cat > docs/agent/state.md << 'EOF'
+# State
+
+## Now
+- ...
+
+## Next
+- ...
+
+## Blockers
+- ...
+EOF
+
+    # Create decisions.md
+    cat > docs/agent/decisions.md << 'EOF'
+# Decisions
+
+## YYYY-MM-DD — <decision title>
+- **Decision**: ...
+- **Why**: ...
+- **Impact**: ...
+EOF
+fi
+
+# 5. Cleanup
 rm -rf "$TEMP_DIR"
 rm "$TEMP_DIR.zip"
 

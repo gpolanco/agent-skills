@@ -207,6 +207,38 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 
 ---
 
+## Agent Memory (`docs/agent/`)
+
+This directory is **persistent memory**. It exists to move thinking out of the chat and preserve it across sessions.
+
+### Structure
+
+```
+docs/agent/
+├── plans/          → what will be done and why (one file per plan)
+├── state.md        → what is done / what is pending (live)
+└── decisions.md    → important agreements (append-only log)
+```
+
+### Who writes what
+
+| File              | Written by        | When                                  |
+| ----------------- | ----------------- | ------------------------------------- |
+| `plans/<slug>.md` | Planner sub-agent | Before execution starts               |
+| `state.md`        | Main agent        | After completing something (optional) |
+| `decisions.md`    | Main agent        | When a criteria change happens        |
+
+### Rules
+
+* **Plans**: always follow the template in `docs/agent/plans/TEMPLATE.md`. No exceptions.
+* **state.md**: bullet points only. No narrative.
+* **decisions.md**: append only. One entry per decision. Never overwrite.
+* **Sub-agents do NOT talk to each other** through this directory.
+* **Sub-agents do NOT execute**. They think and write. The main agent reads and executes.
+* **Skip entirely for small tasks.** If it fits in a single prompt, no memory needed.
+
+---
+
 ## Project-Specific Rules
 
 <!-- Add any unique flows, constraints, or patterns specific to this project -->

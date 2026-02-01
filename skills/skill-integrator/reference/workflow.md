@@ -1,4 +1,4 @@
-# Skill Integration Workflow Guide (v1.1)
+# Skill Integration Workflow Guide (v1.2)
 
 This workflow describes **exactly** how to integrate (activate) skills into a project.
 
@@ -8,6 +8,7 @@ This workflow describes **exactly** how to integrate (activate) skills into a pr
 
 * `AGENTS.md`
 * `skills/README.md`
+* `docs/agent/` (initialization only, never overwrite existing files)
 
 ### You MUST NOT edit
 
@@ -22,7 +23,7 @@ Skills are expected to be already downloaded locally.
 
 1. Prefer `skills/` if it exists.
 2. Else fallback to `.agent/skills/`.
-3. If neither exists, stop and ask the user to run the project’s setup script that creates/downloads skills.
+3. If neither exists, stop and ask the user to run the project's setup script that creates/downloads skills.
 
 **Define:**
 
@@ -72,7 +73,7 @@ ls -1 "${SKILLS_DIR}" | sort
 
 **Rules:**
 
-* Don’t activate skills that clearly don’t apply.
+* Don't activate skills that clearly don't apply.
 * If the project already has active skills, keep them unless they are wrong/conflicting.
 
 **Output (text):**
@@ -88,9 +89,9 @@ Present findings and ask for confirmation **before writing**.
 
 Template:
 
-* “I detected: … (stack)”
-* “I propose activating: … (skills)”
-* “Shall I update `AGENTS.md` and `skills/README.md` accordingly?”
+* "I detected: … (stack)"
+* "I propose activating: … (skills)"
+* "Shall I update `AGENTS.md`, `skills/README.md`, and initialize `docs/agent/` accordingly?"
 
 If the user says yes → continue.
 
@@ -103,6 +104,7 @@ If the user says yes → continue.
 1. Read templates from the local skills directory:
    - `${SKILLS_DIR}/../templates/AGENTS.template.md`
    - `${SKILLS_DIR}/../templates/SKILLS_README.template.md`
+   - `${SKILLS_DIR}/../templates/plans/TEMPLATE.md`
 2. If not found locally, fallback to remote fetch:
    - `https://raw.githubusercontent.com/gpolanco/skills-as-context/main/templates/...`
 3. If neither works, stop and ask the user.
@@ -138,11 +140,44 @@ Populate:
 * ✅ Active (selected)
 * 📦 Available (not selected)
 
+### Step 4.4 — Initialize agent memory
+
+1. If `docs/agent/` already exists, **skip entirely**. It is live memory, never reset.
+2. Create `docs/agent/plans/` directory.
+3. Copy the plan template:
+   - Source: `${SKILLS_DIR}/../templates/plans/TEMPLATE.md`
+   - Destination: `docs/agent/plans/TEMPLATE.md`
+4. Create `docs/agent/state.md` with:
+
+```md
+# State
+
+## Now
+- ...
+
+## Next
+- ...
+
+## Blockers
+- ...
+```
+
+5. Create `docs/agent/decisions.md` with:
+
+```md
+# Decisions
+
+## YYYY-MM-DD — <decision title>
+- **Decision**: ...
+- **Why**: ...
+- **Impact**: ...
+```
+
 ---
 
 ## Phase 5 — Verification
 
-1. Verify paths exist:
+1. Verify skill paths exist:
 
 ```bash
 for d in $(ls -1 "${SKILLS_DIR}"); do
@@ -154,12 +189,19 @@ done
 3. Re-run the skill list:
 
    * Ensure all skills are present in `skills/README.md`.
+4. Verify agent memory structure:
+
+```bash
+test -f "docs/agent/plans/TEMPLATE.md" || echo "Missing plans/TEMPLATE.md"
+test -f "docs/agent/state.md"          || echo "Missing state.md"
+test -f "docs/agent/decisions.md"      || echo "Missing decisions.md"
+```
 
 **Output (text):**
 
-* “Integration complete”
+* "Integration complete"
 * Active skills list
-* Files changed: `AGENTS.md`, `skills/README.md`
+* Files changed: `AGENTS.md`, `skills/README.md`, `docs/agent/`
 
 ---
 
@@ -173,10 +215,23 @@ done
 ### Skill naming mismatches
 
 * Prefer directory names as canonical IDs.
-* Don’t “rename” skills during integration.
+* Don't "rename" skills during integration.
 
 ### Conflicting skills
 
 * Do not activate both.
 * Recommend one and justify briefly.
 
+### Existing `docs/agent/` directory
+
+* **Never overwrite.** It contains live project memory.
+* Skip Step 4.4 entirely if the directory already exists.
+* If the user explicitly asks to reset agent memory, ask for confirmation first.
+
+---
+
+Don't forget to commit!
+
+```bash
+git add AGENTS.md skills/README.md docs/agent/ && git commit -m "chore(skills): integrate active skills"
+```
