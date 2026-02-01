@@ -25,30 +25,42 @@
 <!-- Choose based on project type and customize accordingly -->
 
 <!-- For Frontend (Next.js/React): -->
-- **Framework**: Next.js {version} (App Router)
-- **UI**: {Styling approach - Tailwind, CSS Modules, etc.}
+
+* **Framework**: Next.js {version} (App Router)
+* **UI**: {Styling approach - Tailwind, CSS Modules, etc.}
 
 <!-- For Backend (Node.js): -->
-- **Runtime**: Node.js {version}+
-- **Framework**: {Express/Fastify/Hono/None}
+
+* **Runtime**: Node.js {version}+
+* **Framework**: {Express/Fastify/Hono/None}
 
 <!-- For CLI Tools: -->
-- **Runtime**: Node.js {version}+
-- **Type**: CLI Application
+
+* **Runtime**: Node.js {version}+
+* **Type**: CLI Application
 
 <!-- For Python: -->
-- **Runtime**: Python {version}+
-- **Framework**: {FastAPI/Django/Flask}
+
+* **Runtime**: Python {version}+
+* **Framework**: {FastAPI/Django/Flask}
 
 <!-- Common for all: -->
-- **Language**: TypeScript (Strict Mode) OR Python OR PHP
-- **Database**: {Database name + ORM if applicable}
-- **Package Manager**: pnpm (v9+) OR npm OR yarn
-- {Add other key technologies}
+
+* **Language**: TypeScript (Strict Mode) OR Python OR PHP
+* **Database**: {Database name + ORM if applicable}
+* **Package Manager**: pnpm (v9+) OR npm OR yarn
+* {Add other key technologies}
 
 ---
 
 ## Available Skills
+
+> **Important**
+>
+> * **DO NOT read all skills upfront.**
+> * Load **only** the minimum skill(s) required for the current task (default max **3**).
+> * Use the **Auto-invoke Skills** table below as the router to decide which skill to open.
+> * Prefer targeted search and opening small sections over reading whole files.
 
 | Skill              | Description                   | URL                                          |
 | ------------------ | ----------------------------- | -------------------------------------------- |
@@ -57,8 +69,8 @@
 
 ### Generic Skills
 
-| Skill                  | Description                                 | Status   | URL                                              |
-| ---------------------- | ------------------------------------------- | -------- | ------------------------------------------------ |
+| Skill                  | Description                                 | Status  | URL                                              |
+| ---------------------- | ------------------------------------------- | ------- | ------------------------------------------------ |
 | `structuring-projects` | Project structure (features, DDD, monorepo) | ✅ Ready | [SKILL.md](skills/structuring-projects/SKILL.md) |
 | `react-19`             | React 19 + React Compiler patterns          | ✅ Ready | [SKILL.md](skills/react-19/SKILL.md)             |
 | `zod-4`                | Zod v4 runtime validation patterns          | ✅ Ready | [SKILL.md](skills/zod-4/SKILL.md)                |
@@ -68,8 +80,6 @@
 | `forms`                | React Hook Form + Zod patterns              | ✅ Ready | [SKILL.md](skills/forms/SKILL.md)                |
 | `supabase`             | Auth, RLS, SSR best practices               | ✅ Ready | [SKILL.md](skills/supabase/SKILL.md)             |
 | `testing-vitest`       | Vitest testing patterns                     | ✅ Ready | [SKILL.md](skills/testing-vitest/SKILL.md)       |
-
-| {Add/remove skills as needed}
 
 ---
 
@@ -100,92 +110,100 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 
 #### Architecture
 
-**⚠️ CRITICAL: Read the EXACT structure for your project type:**
+* **Project structure decisions MUST be delegated to the `structuring-projects` skill.**
 
-- **Follow `structuring-projects` skill Decision Tree** → It will tell you which reference file to read
-- **Backend API/CLI**: MUST read `skills/structuring-projects/reference/node-cli-patterns.md` FIRST
-- **Frontend (Next.js)**: MUST read `skills/structuring-projects/reference/nextjs-patterns.md` FIRST
-- **DDD/Hexagonal**: MUST read `skills/structuring-projects/reference/ddd-rules.md` FIRST
-- **DO NOT create structure from memory** - Follow the exact examples in reference files
-- {Add project-specific architecture rules}
+* **Do NOT design or recreate structure from memory.**
 
-- **Single Source of Truth**: Routes, types, and schemas defined once and imported everywhere
+* Follow exactly the decision tree and reference files defined inside that skill.
+
+* {Add project-specific architecture rules}
+
+* **Single Source of Truth**: Routes, types, and schemas defined once and imported everywhere
 
 #### Data Flow
 
 <!-- For Next.js projects: -->
-- **Server-First Data Loading**: Follow patterns in `nextjs` skill → [reference/data-fetching.md](skills/nextjs/reference/data-fetching.md)
-  - Server Components for data fetching
-  - Server Actions for mutations
+
+* **Server-First Data Loading**: Follow patterns in the `nextjs` skill
+
+  * Server Components for data fetching
+  * Server Actions for mutations
 
 <!-- For Backend projects: -->
-- **Layered Architecture**: Follow dependency direction
-  - Controllers/Routes → Services → Repositories
-  - Domain → Application → Infrastructure (if using DDD)
+
+* **Layered Architecture**: Follow dependency direction
+
+  * Controllers/Routes → Services → Repositories
+  * Domain → Application → Infrastructure (if using DDD)
 
 <!-- For all projects: -->
-- **Validate ALL inputs**: Use Zod (see `zod-4` skill) with explicit version `zod@^4.0.0`
-- {Add project-specific data flow rules}
+
+* **Validate ALL inputs**: Use Zod (see `zod-4` skill) with explicit version `zod@^4.0.0`
+* {Add project-specific data flow rules}
 
 ### NEVER
 
 #### Scope Violations
 
-- **Never add features without approval** {if product has defined scope}
-- {Add project-specific scope violations}
+* **Never add features without approval** {if product has defined scope}
+* {Add project-specific scope violations}
 
 #### Architecture Violations
 
-- **Never mutate objects in App layer** - Always return new objects (if using service layer)
-- {Add project-specific architecture violations}
+* **Never mutate objects in App layer** - Always return new objects (if using service layer)
+* {Add project-specific architecture violations}
 
 #### Code Quality (CRITICAL)
 
 **⚠️ ALWAYS (Non-Negotiable):**
 
-- **Verify types IMMEDIATELY** after writing code - run `tsc --noEmit` or check IDE errors
-- **Fix ALL errors BEFORE continuing** - Never leave red squiggles or linter errors
-- **Read linter output** after each file edit - Address every warning/error
-- **Test compilation** - Ensure code compiles successfully before moving to next task
-- **Validate imports** - Ensure all imports resolve correctly
+* **Verify types IMMEDIATELY** after writing code - run `tsc --noEmit` or check IDE errors
+* **Fix ALL errors BEFORE continuing** - Never leave red squiggles or linter errors
+* **Read linter output** after each file edit - Address every warning/error
+* **Test compilation** - Ensure code compiles successfully before moving to next task
+* **Validate imports** - Ensure all imports resolve correctly
 
 **🚫 NEVER (Zero Tolerance):**
 
-- **NEVER continue with next task if current code has errors**
-- **NEVER leave TypeScript errors unresolved** ("I'll fix it later" = NOT ALLOWED)
-- **NEVER assume code works** - Always verify
-- **NEVER skip type annotations** on function parameters and returns
-- **NEVER use `any`** unless explicitly approved
-- **NEVER commit broken code** - Each edit must compile successfully
+* **NEVER continue with next task if current code has errors**
+* **NEVER leave TypeScript errors unresolved** ("I'll fix it later" = NOT ALLOWED)
+* **NEVER assume code works** - Always verify
+* **NEVER skip type annotations** on function parameters and returns
+* **NEVER use `any`** unless explicitly approved
+* **NEVER commit broken code** - Each edit must compile successfully
 
 **Project-Specific:**
 
-- **Never hardcode routes** - Use centralized route definitions from `features/routes.ts`
-- **Never return `null` for missing data in repos** - Throw appropriate errors
-- {Add project-specific code quality rules}
+* **Never hardcode routes** - Use centralized route definitions from `features/routes.ts`
+* **Never return `null` for missing data in repos** - Throw appropriate errors
+* {Add project-specific code quality rules}
 
 ### DEFAULTS
 
 #### Development
 
 <!-- For Next.js: -->
-- Environment: Next.js {version}+ with App Router
-- Styling: {Default styling approach}
-- State: Server Components first, client state when necessary
-- Forms: React Hook Form + Zod v4 validation
+
+* Environment: Next.js {version}+ with App Router
+* Styling: {Default styling approach}
+* State: Server Components first, client state when necessary
+* Forms: React Hook Form + Zod v4 validation
 
 <!-- For Node.js Backend/CLI: -->
-- Environment: Node.js {version}+
-- Configuration: YAML/JSON with Zod v4 validation
-- Logging: Structured JSON logs
+
+* Environment: Node.js {version}+
+* Configuration: YAML/JSON with Zod v4 validation
+* Logging: Structured JSON logs
 
 <!-- For Python: -->
-- Environment: Python {version}+
-- Configuration: Pydantic validation
+
+* Environment: Python {version}+
+* Configuration: Pydantic validation
 
 <!-- Common: -->
-- Database: {Database name} with {ORM/access pattern}
-- Testing: {Test framework}
+
+* Database: {Database name} with {ORM/access pattern}
+* Testing: {Test framework}
 
 ---
 
@@ -197,9 +215,9 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 
 {Description of specific rules for this feature}
 
-- Rule 1
-- Rule 2
-- Rule 3
+* Rule 1
+* Rule 2
+* Rule 3
 
 ---
 
@@ -212,7 +230,6 @@ To create or modify a skill, the user MUST invoke:
 
 If a request sounds like skill creation but @skill-creator is not used,
 the agent must ask for confirmation instead of proceeding.
-
 
 ## Common Commands
 
@@ -230,9 +247,8 @@ pnpm test                    # Run tests
 
 ## Resources
 
-- {Add external documentation links only}
-- [Next.js Documentation](https://nextjs.org/docs) - Next.js App Router
-- {Add relevant framework/library docs}
+* {Add external documentation links only}
+* {Add relevant framework/library docs}
 
 ---
 

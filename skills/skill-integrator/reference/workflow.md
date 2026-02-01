@@ -98,12 +98,14 @@ If the user says yes → continue.
 
 ## Phase 4 — Orchestration (write files)
 
-### Step 4.1 — Fetch canonical templates (MANDATORY)
+### Step 4.1 — Locate canonical templates
 
-Fetch raw content:
-
-* `https://raw.githubusercontent.com/gpolanco/skills-as-context/main/templates/AGENTS.template.md`
-* `https://raw.githubusercontent.com/gpolanco/skills-as-context/main/templates/SKILLS_README.template.md`
+1. Read templates from the local skills directory:
+   - `${SKILLS_DIR}/../templates/AGENTS.template.md`
+   - `${SKILLS_DIR}/../templates/SKILLS_README.template.md`
+2. If not found locally, fallback to remote fetch:
+   - `https://raw.githubusercontent.com/gpolanco/skills-as-context/main/templates/...`
+3. If neither works, stop and ask the user.
 
 Rules:
 
@@ -178,10 +180,3 @@ done
 * Do not activate both.
 * Recommend one and justify briefly.
 
----
-
-Don’t forget to commit!
-
-```bash
-git add AGENTS.md skills/README.md && git commit -m "chore(skills): integrate active skills"
-```
