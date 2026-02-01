@@ -11,7 +11,8 @@
 <p align="center">
   <a href="#-quick-start">Quick Start</a> •
   <a href="#-how-it-works">How It Works</a> •
-  <a href="#-catalog">Catalog</a>
+  <a href="#-catalog">Catalog</a> •
+  <a href="#-agents">Agents</a>
 </p>
 
 </div>
@@ -66,7 +67,7 @@ Transform your project in **30 seconds**. Run this command at your project root:
 curl -sSL https://raw.githubusercontent.com/gpolanco/skills-as-context/main/templates/init-agent.sh | bash
 ```
 
-**That's it.** You now have a `.agent/skills` (or `skills/`) folder populated with the standard catalog.
+**That's it.** You now have a `skills/` folder populated with the standard catalog, and `docs/agent/` initialized as persistent memory.
 
 ### Next Steps
 
@@ -87,7 +88,7 @@ curl -sSL https://raw.githubusercontent.com/gpolanco/skills-as-context/main/temp
 | Skill | Description | Trigger |
 | :--- | :--- | :--- |
 | [**skill-integrator**](skills/skill-integrator) | 🧠 **Context Awareness.** Analyzes your tech stack and auto-loads relevant skills. | `"Setup project"` |
-| [**skill-creator**](skills/skill-creator) | 🏭 **Factory.** detailed guide to building your own high-quality skills. | `"Create a skill"` |
+| [**skill-creator**](skills/skill-creator) | 🏭 **Factory.** Detailed guide to building your own high-quality skills. | `"Create a skill"` |
 
 ### 📚 Generic Skills (The Knowledge)
 
@@ -104,6 +105,48 @@ curl -sSL https://raw.githubusercontent.com/gpolanco/skills-as-context/main/temp
 | | [**testing-vitest**](skills/testing-vitest) | Unit and integration testing strategies. |
 
 👉 **[Browse Full Catalog](skills/README.md)**
+
+---
+
+## 🤖 Agents
+
+Sub-agents that handle specific roles. They **think and write** — they do not execute. The main agent reads their output and executes.
+
+### How it works
+
+```
+Sub-agent (e.g. Planner)     →  thinks, writes to docs/agent/
+docs/agent/                   →  persistent memory across sessions
+Main agent                    →  reads memory, executes
+```
+
+### Agent Memory (`docs/agent/`)
+
+Every consumer project gets a `docs/agent/` directory on init. It is **not** for sub-agent communication or coordination. It is persistent memory: plans, state, and decisions preserved across sessions.
+
+```
+docs/agent/
+├── plans/          → what will be done and why (one file per plan)
+├── state.md        → what is done / what is pending (live)
+└── decisions.md    → important agreements (append-only log)
+```
+
+### Available Agents
+
+| Agent | Role | Output |
+| :--- | :--- | :--- |
+| [**planner**](agents/planner.template.md) | Produces minimal, executable plans for non-trivial tasks. | `docs/agent/plans/<slug>.md` |
+| [**reviewer**](agents/reviewer.template.md) | *(coming soon)* | — |
+
+### When to use agents
+
+| Scenario | Use agent? |
+| :--- | :--- |
+| Task is ambiguous or spans multiple files | ✅ Planner |
+| Architectural decision or trade-off involved | ✅ Planner |
+| Risk of scope creep | ✅ Planner |
+| Small, well-defined change | ❌ Direct prompt |
+| Sequential steps where each depends on the previous | ❌ Single session |
 
 ---
 
