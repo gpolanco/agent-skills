@@ -110,14 +110,14 @@ curl -sSL https://raw.githubusercontent.com/gpolanco/skills-as-context/main/temp
 
 ## 🤖 Agents
 
-Sub-agents that handle specific roles. They **think and write** — they do not execute. The main agent reads their output and executes.
+Sub-agents that handle specific roles. They **think and evaluate** — they do not execute. The main agent reads their output and acts.
 
 ### How it works
 
 ```
-Sub-agent (e.g. Planner)     →  thinks, writes to docs/agent/
-docs/agent/                   →  persistent memory across sessions
-Main agent                    →  reads memory, executes
+Sub-agent (Planner / Reviewer)  →  thinks, writes or evaluates
+docs/agent/                     →  persistent memory across sessions
+Main agent                      →  reads memory, executes
 ```
 
 ### Agent Memory (`docs/agent/`)
@@ -136,7 +136,7 @@ docs/agent/
 | Agent | Role | Output |
 | :--- | :--- | :--- |
 | [**planner**](agents/planner.template.md) | Produces minimal, executable plans for non-trivial tasks. | `docs/agent/plans/<slug>.md` |
-| [**reviewer**](agents/reviewer.template.md) | *(coming soon)* | — |
+| [**reviewer**](agents/reviewer.template.md) | Evaluates diffs and changes for scope, correctness, and risks. | Inline (verdict + findings) |
 
 ### When to use agents
 
@@ -145,6 +145,8 @@ docs/agent/
 | Task is ambiguous or spans multiple files | ✅ Planner |
 | Architectural decision or trade-off involved | ✅ Planner |
 | Risk of scope creep | ✅ Planner |
+| Reviewing a change before merge | ✅ Reviewer |
+| Validating implementation matches intent | ✅ Reviewer |
 | Small, well-defined change | ❌ Direct prompt |
 | Sequential steps where each depends on the previous | ❌ Single session |
 
