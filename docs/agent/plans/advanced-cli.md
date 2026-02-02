@@ -159,7 +159,7 @@ cli/
 8. ✅ Implementar `init-wizard.ts` con flujo completo
 9. ✅ Implementar comando `init` con opciones CLI
 10. ✅ Implementar comandos `add`, `remove`, `list`
-11. ⏳ Agregar tests unitarios para services
+11. ✅ Agregar tests unitarios (35 tests, 91% coverage)
 12. ✅ Documentar uso en README
 13. ⏳ Versionado (CHANGELOG, git tags)
 14. ⏳ Publicar v1.0.0 en npm como `@skills-as-context/cli`
