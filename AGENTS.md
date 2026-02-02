@@ -2,30 +2,39 @@
 
 ## Project Overview
 
-**build-a-skills** is a curated collection of AI Agent Skills.
+**skills-as-context** is a personal collection of AI Agent Skills.
 
 **Purpose**: Provide production-ready skills that teach AI assistants best practices, architectural patterns, and coding conventions.
 
 **Structure:**
 
 ```
-build-a-skills/
+skills-as-context/
 ├── skills/                  # Individual skills
-│   ├── skill-creator/      # Meta skill
-│   ├── structuring-projects/ # Project structure patterns
-│   ├── react-19/           # React 19 + Compiler
-│   ├── zod-4/              # Zod v4 validation
-│   ├── typescript/         # TypeScript patterns
-│   ├── tailwind-4/         # Tailwind CSS patterns
+│   ├── skill-creator/       # Meta skill for creating skills
+│   ├── skill-integrator/    # Meta skill for project setup
+│   ├── structuring-projects/# Project structure patterns
+│   ├── react-19/            # React 19 + Compiler
+│   ├── nextjs/              # Next.js App Router
+│   ├── forms/               # React Hook Form + Zod
+│   ├── supabase/            # Supabase patterns
+│   ├── testing-vitest/      # Vitest testing
 │   └── ...
-├── templates/              # AGENTS.md template
-└── docs/                   # Documentation
+├── agents/                  # Agent templates
+│   ├── planner.template.md  # Planning agent
+│   └── reviewer.template.md # Review agent
+├── templates/               # Project templates
+│   ├── AGENTS.template.md   # AGENTS.md for consumer projects
+│   ├── init-agent.sh        # Bootstrap script
+│   └── plans/               # Plan templates
+└── docs/
+    └── agent/               # Persistent agent memory
 ```
 
 **Tech Stack:**
 
 - Markdown (skills documentation)
-- Python (optional scripts for Tool/Hybrid skills)
+- Shell/Bash (bootstrap scripts)
 - Standard: V5 Hybrid Model
 
 ---
@@ -34,21 +43,26 @@ build-a-skills/
 
 ### Meta Skills
 
-| Skill           | Description                                 | URL                                       |
-| --------------- | ------------------------------------------- | ----------------------------------------- |
-| `skill-creator` | Create/modify AI agent skills | [SKILL.md](skills/skill-creator/SKILL.md) |
+| Skill              | Description                              | URL                                          |
+| ------------------ | ---------------------------------------- | -------------------------------------------- |
+| `skill-creator`    | Create/modify AI agent skills            | [SKILL.md](skills/skill-creator/SKILL.md)    |
+| `skill-integrator` | Analyze stack and auto-load skills       | [SKILL.md](skills/skill-integrator/SKILL.md) |
 
 ### Generic Skills
 
-| Skill                  | Description                                 | Status     | URL                                              |
-| ---------------------- | ------------------------------------------- | ---------- | ------------------------------------------------ |
-| `structuring-projects` | Project structure (features, DDD, monorepo) | ✅ Ready   | [SKILL.md](skills/structuring-projects/SKILL.md) |
-| `react-19`             | React 19 + React Compiler patterns          | ✅ Ready   | [SKILL.md](skills/react-19/SKILL.md)             |
-| `zod-4`                | Zod v4 runtime validation patterns          | ✅ Ready   | [SKILL.md](skills/zod-4/SKILL.md)                |
-| `typescript`           | Strict types, const patterns                | ✅ Ready   | [SKILL.md](skills/typescript/SKILL.md)           |
-| `tailwind-4`           | cn() utility, Tailwind 4 API                | ✅ Ready   | [SKILL.md](skills/tailwind-4/SKILL.md)           |
-| `nextjs`               | App Router, Server Components               | ✅ Ready   | [SKILL.md](skills/nextjs/SKILL.md)               |
-| `playwright`           | Page Object Model, selectors                | 📝 Planned | -                                                |
+| Skill                    | Description                                 | Status   | URL                                                |
+| ------------------------ | ------------------------------------------- | -------- | -------------------------------------------------- |
+| `structuring-projects`   | Project structure (features, DDD, monorepo) | ✅ Ready | [SKILL.md](skills/structuring-projects/SKILL.md)   |
+| `react-19`               | React 19 + React Compiler patterns          | ✅ Ready | [SKILL.md](skills/react-19/SKILL.md)               |
+| `zod-4`                  | Zod v4 runtime validation patterns          | ✅ Ready | [SKILL.md](skills/zod-4/SKILL.md)                  |
+| `typescript`             | Strict types, const patterns                | ✅ Ready | [SKILL.md](skills/typescript/SKILL.md)             |
+| `tailwind-4`             | cn() utility, Tailwind 4 API                | ✅ Ready | [SKILL.md](skills/tailwind-4/SKILL.md)             |
+| `nextjs`                 | App Router, Server Components               | ✅ Ready | [SKILL.md](skills/nextjs/SKILL.md)                 |
+| `forms`                  | React Hook Form + Zod type-safe forms       | ✅ Ready | [SKILL.md](skills/forms/SKILL.md)                  |
+| `supabase`               | RLS, Auth, Database patterns                | ✅ Ready | [SKILL.md](skills/supabase/SKILL.md)               |
+| `testing-vitest`         | Unit and integration testing                | ✅ Ready | [SKILL.md](skills/testing-vitest/SKILL.md)         |
+| `route-handlers`         | API route patterns                          | ✅ Ready | [SKILL.md](skills/route-handlers/SKILL.md)         |
+| `nextjs-route-handlers`  | Next.js API route handlers                  | ✅ Ready | [SKILL.md](skills/nextjs-route-handlers/SKILL.md)  |
 
 ---
 
@@ -56,22 +70,26 @@ build-a-skills/
 
 When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 
-| Action                                      | Skill                  |
-| ------------------------------------------- | ---------------------- |
-| Creating new skills                         | `skill-creator`        |
-| Modifying existing skills                   | `skill-creator`        |
-| Organizing project structure                | `structuring-projects` |
-| Writing React 19 components                 | `react-19`             |
-| Creating Zod schemas                        | `zod-4`                |
-| Writing TypeScript types/interfaces         | `typescript`           |
-| Styling with Tailwind                       | `tailwind-4`           |
-| Writing Next.js code                        | `nextjs`               |
-| Creating forms                              | `forms`                |
-| Working with Supabase                       | `supabase`             |
-| Writing tests                               | `testing-vitest`       |
-| Reviewing skill quality                     | `skill-creator`        |
-| Adding DDD architecture to a project        | `structuring-projects` |
-| Setting up feature-based architecture       | `structuring-projects` |
+| Action                                      | Skill                   |
+| ------------------------------------------- | ----------------------- |
+| Setting up a new project                    | `skill-integrator`      |
+| Configuring project skills                  | `skill-integrator`      |
+| Creating new skills                         | `skill-creator`         |
+| Modifying existing skills                   | `skill-creator`         |
+| Reviewing skill quality                     | `skill-creator`         |
+| Organizing project structure                | `structuring-projects`  |
+| Adding DDD architecture to a project        | `structuring-projects`  |
+| Setting up feature-based architecture       | `structuring-projects`  |
+| Writing React 19 components                 | `react-19`              |
+| Creating Zod schemas                        | `zod-4`                 |
+| Writing TypeScript types/interfaces         | `typescript`            |
+| Styling with Tailwind                       | `tailwind-4`            |
+| Writing Next.js code                        | `nextjs`                |
+| Creating API route handlers                 | `route-handlers`        |
+| Creating Next.js API routes                 | `nextjs-route-handlers` |
+| Creating forms                              | `forms`                 |
+| Working with Supabase                       | `supabase`              |
+| Writing tests                               | `testing-vitest`        |
 
 ---
 
@@ -169,9 +187,36 @@ vi skills/README.md
 
 ---
 
+## Agents
+
+Sub-agents that handle specific roles. They **think and evaluate** — they do not execute.
+
+### Available Agents
+
+| Agent        | Role                                              | Output                          |
+| ------------ | ------------------------------------------------- | ------------------------------- |
+| `planner`    | Produces minimal, executable plans for tasks      | `docs/agent/plans/<slug>.md`    |
+| `reviewer`   | Evaluates diffs for scope, correctness, and risks | Inline (verdict + findings)     |
+
+### Agent Memory (`docs/agent/`)
+
+Persistent memory for plans, state, and decisions across sessions:
+
+```
+docs/agent/
+├── plans/          → what will be done and why
+├── state.md        → what is done / pending
+└── decisions.md    → important agreements (append-only)
+```
+
+---
+
 ## Resources
 
 - [Skills Catalog](skills/README.md) - All available skills
 - [Skill Creator](skills/skill-creator/SKILL.md) - How to create skills
+- [Skill Integrator](skills/skill-integrator/SKILL.md) - Project setup
 - [Design Guidelines](skills/skill-creator/reference/skill-designer-core.md) - Quality standards
-- [AGENTS Template](templates/AGENTS.template.md) - Template for other projects
+- [AGENTS Template](templates/AGENTS.template.md) - Template for consumer projects
+- [Planner Agent](agents/planner.template.md) - Planning agent template
+- [Reviewer Agent](agents/reviewer.template.md) - Review agent template
