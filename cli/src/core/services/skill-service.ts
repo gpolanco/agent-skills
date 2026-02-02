@@ -7,7 +7,6 @@ import type { Skill, Agent, SkillMetadata } from "../types/skill.types.js";
 
 const execAsync = promisify(exec);
 
-const REPO_URL = "https://github.com/gpolanco/skills-as-context";
 const CONTENT_PATH = "content";
 
 export interface DownloadOptions {

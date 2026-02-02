@@ -1,4 +1,5 @@
 import { Command } from "commander";
+import { registerInitCommand } from "./init.js";
 
 const program = new Command();
 
@@ -7,16 +8,8 @@ program
   .description("CLI for managing AI agent skills")
   .version("0.1.0");
 
-program
-  .command("init")
-  .description("Initialize skills in your project")
-  .option("-e, --editor <editor>", "Target editor (claude, cursor, copilot, antigravity)")
-  .option("-p, --preset <preset>", "Use a preset (nextjs, react, node, full)")
-  .option("-y, --yes", "Skip prompts and use defaults")
-  .action(async (options) => {
-    console.log("Init command - to be implemented in Phase 2");
-    console.log("Options:", options);
-  });
+// Register commands
+registerInitCommand(program);
 
 program
   .command("list")
