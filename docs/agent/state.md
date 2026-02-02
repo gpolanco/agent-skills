@@ -52,4 +52,9 @@
 - npm publish v1.0.0
 
 ## ⏳ Fase 5 - Automation (Pending)
-- Automatizar Version/Changelog/Publish pipeline
+- Automatizar Version/Changelog/Publish pipeline:
+  - Disparado por merge a `main`
+  - Version bump automático (semantic versioning)
+  - Actualización automática de `CHANGELOG.md`
+  - `npm publish` automático desde CI
+  - Creación de GitHub Release con el tag correspondiente

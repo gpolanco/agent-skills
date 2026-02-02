@@ -168,7 +168,11 @@ cli/
     - ✅ Crear git tag `v1.0.0`
 14. ⏳ Publicar v1.0.0 en npm como `@skills-as-context/cli`
 15. ⏳ Automatizar Release Pipeline
-    - Update version, update changelog y publish to npm automático
+    - Setup GitHub Action disparada por merge a `main`
+    - Version bump automático (semantic versioning)
+    - Generación automática de `CHANGELOG.md`
+    - Publicación automática en npm
+    - Creación de GitHub Release con el tag correspondiente
 
 
 ## Verificacion
