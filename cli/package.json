@@ -1,0 +1,41 @@
+{
+  "name": "@skills-as-context/cli",
+  "version": "0.1.0",
+  "description": "CLI for managing AI agent skills",
+  "type": "module",
+  "bin": {
+    "skills": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "start": "node dist/index.js"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "skills",
+    "claude",
+    "cursor",
+    "copilot"
+  ],
+  "author": "gpolanco",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@inquirer/prompts": "^7.0.0",
+    "commander": "^12.0.0",
+    "ora": "^8.0.0",
+    "picocolors": "^1.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
