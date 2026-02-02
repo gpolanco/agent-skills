@@ -149,19 +149,20 @@ cli/
 
 ## Steps
 
-1. Crear estructura de carpetas `cli/`
-2. Configurar `package.json` con dependencias y bin entry
-3. Implementar `detection-service.ts` (detectar stack desde package.json)
-4. Implementar `skill-service.ts` (descargar, copiar, validar skills)
-5. Implementar `config-service.ts` (leer/escribir .skillsrc.json)
-6. Crear types para editores y skills
-7. Implementar UI helpers (prompts, spinner)
-8. Implementar `init-wizard.ts` con flujo completo
-9. Implementar comando `init` con opciones CLI
-10. Implementar comandos `add`, `remove`, `list`
-11. Agregar tests unitarios para services
-12. Documentar uso en README
-13. Publicar en npm como `@skills-as-context/cli`
+1. ✅ Crear estructura de carpetas `cli/`
+2. ✅ Configurar `package.json` con dependencias y bin entry
+3. ✅ Implementar `detection-service.ts` (detectar stack desde package.json)
+4. ✅ Implementar `skill-service.ts` (descargar, copiar, validar skills)
+5. ✅ Implementar `config-service.ts` (leer/escribir .skillsrc.json)
+6. ✅ Crear types para editores y skills
+7. ✅ Implementar UI helpers (prompts, spinner)
+8. ✅ Implementar `init-wizard.ts` con flujo completo
+9. ✅ Implementar comando `init` con opciones CLI
+10. ✅ Implementar comandos `add`, `remove`, `list`
+11. ⏳ Agregar tests unitarios para services
+12. ✅ Documentar uso en README
+13. ⏳ Versionado (CHANGELOG, git tags)
+14. ⏳ Publicar v1.0.0 en npm como `@skills-as-context/cli`
 
 ## Verificacion
 
