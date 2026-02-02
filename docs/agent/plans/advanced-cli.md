@@ -165,8 +165,11 @@ cli/
     - ✅ Actualizar version en `cli/package.json`
     - ✅ Generar `CHANGELOG.md` detallado
     - ✅ Sincronizar version en documentacion
-    - ⏳ Crear git tag `v1.0.0`
+    - ✅ Crear git tag `v1.0.0`
 14. ⏳ Publicar v1.0.0 en npm como `@skills-as-context/cli`
+15. ⏳ Automatizar Release Pipeline
+    - Update version, update changelog y publish to npm automático
+
 
 ## Verificacion
 

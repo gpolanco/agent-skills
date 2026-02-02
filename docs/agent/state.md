@@ -48,5 +48,8 @@
 | Versionado v1.0.0 | ✅ |
 
 ## ⏳ Fase 4 - Release (Pending)
-- Crear git tag v1.0.0
+- Crear git tag v1.0.0 (✅ Done)
 - npm publish v1.0.0
+
+## ⏳ Fase 5 - Automation (Pending)
+- Automatizar Version/Changelog/Publish pipeline
