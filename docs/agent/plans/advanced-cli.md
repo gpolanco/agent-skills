@@ -161,7 +161,11 @@ cli/
 10. ✅ Implementar comandos `add`, `remove`, `list`
 11. ✅ Agregar tests unitarios (35 tests, 91% coverage)
 12. ✅ Documentar uso en README
-13. ⏳ Versionado (CHANGELOG, git tags)
+13. ✅ Versionado v1.0.0
+    - ✅ Actualizar version en `cli/package.json`
+    - ✅ Generar `CHANGELOG.md` detallado
+    - ✅ Sincronizar version en documentacion
+    - ⏳ Crear git tag `v1.0.0`
 14. ⏳ Publicar v1.0.0 en npm como `@skills-as-context/cli`
 
 ## Verificacion

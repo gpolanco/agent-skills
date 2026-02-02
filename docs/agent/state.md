@@ -1,8 +1,8 @@
 # State
 
 ## Now
-- Tests unitarios completados (35 tests, 91% coverage)
-- Pendiente: versionado y publicación v1.0.0
+- Versión 1.0.0 preparada (package.json, CHANGELOG, index.ts)
+- Pendiente: crear git tag y publicar en npm
 
 ## Next
 - Actualizar CHANGELOG.md
@@ -45,7 +45,8 @@
 | `README.md` | ✅ |
 | `vitest.config.ts` | ✅ |
 | Tests unitarios | ✅ 35 tests, 91% coverage |
+| Versionado v1.0.0 | ✅ |
 
 ## ⏳ Fase 4 - Release (Pending)
-- Versionado (CHANGELOG, git tags)
+- Crear git tag v1.0.0
 - npm publish v1.0.0

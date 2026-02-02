@@ -9,7 +9,7 @@ const program = new Command();
 program
   .name("skills")
   .description("CLI for managing AI agent skills")
-  .version("0.1.0");
+  .version("1.0.0");
 
 // Register commands
 registerInitCommand(program);

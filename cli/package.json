@@ -1,12 +1,16 @@
 {
   "name": "@skills-as-context/cli",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "CLI for managing AI agent skills",
   "type": "module",
   "bin": {
     "skills": "./dist/index.js"
   },
   "main": "./dist/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
