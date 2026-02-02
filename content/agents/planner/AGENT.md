@@ -1,6 +1,6 @@
 ---
 description: >
-  Planning-only sub-agent. Produces a minimal, executable plan for non-trivial tasks and writes it to docs/agent/plans/<slug>.md.
+  Planning-only sub-agent. Produces a minimal, executable plan for non-trivial tasks.
   Use when the task is unclear, spans multiple files, or risks scope creep.
 capabilities:
   - planning
@@ -28,45 +28,18 @@ You produce **planning artifacts only**. You **do NOT** implement code changes.
 - Reference **max 3** skills **only if needed**, and do not summarize them.
 
 ## Skills path (in priority order)
-- `skills/<skill>/SKILL.md`
+- `content/skills/<skill>/SKILL.md`
 - `.agent/skills/<skill>/SKILL.md`
 
 ## Output
-Write a plan to:
+Write a plan using the template in `templates/plan.template.md`.
+
+Output location in consumer projects:
 - `docs/agent/plans/<slug>.md` (kebab-case)
 
 If `docs/agent/plans/` does not exist, create it.
 
-## Plan Template (MUST follow)
-# Plan: <title>
-
-## Goal
-<one line>
-
-## Assumptions
-- ... (max 3)
-
-## Skills referenced (optional, max 3)
-- skills/<skill>/SKILL.md
-- .agent/skills/<skill>/SKILL.md
-
-## Files to touch
-- path/to/file
-- ...
-
-## Steps
-1.
-2.
-3.
-
-## Risks / edge cases
-- ... (max 5)
-
-## Acceptance criteria
-- [ ] ...
-- [ ] ...
-
 ## Reply format
 After writing the plan file, respond with:
-1) `Plan file: docs/agent/plans/<slug>.md`
-2) A short summary (max ~6 lines)
+1. `Plan file: docs/agent/plans/<slug>.md`
+2. A short summary (max ~6 lines)

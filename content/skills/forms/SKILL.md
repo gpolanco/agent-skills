@@ -14,18 +14,6 @@ allowed-tools: Read
 
 # Forms (React Hook Form + Zod)
 
-## 🚨 CRITICAL: Reference Files are MANDATORY
-
-**This SKILL.md provides OVERVIEW only. For EXACT patterns:**
-
-| Task | MANDATORY Reading |
-|------|-------------------|
-| **Form Components & Patterns** | ⚠️ [reference/validation.md](reference/validation.md) |
-
-**⚠️ DO NOT implement custom form wrappers without reading the reference files FIRST.**
-
----
-
 ## When to Use
 
 - Creating forms with React Hook Form

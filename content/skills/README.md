@@ -53,7 +53,7 @@ Reusable patterns for modern development (language-agnostic):
 AI assistants automatically discover skills if they're in these locations:
 
 ```
-skills/                 # ✅ Preferred (project root)
+content/skills/         # ✅ Preferred (project root)
 .agent/skills/          # Generic fallback
 .claude/skills/         # Claude Code
 .github/skills/         # GitHub Copilot
@@ -65,20 +65,20 @@ skills/                 # ✅ Preferred (project root)
 Load a specific skill during a session:
 
 ```
-Read skills/structuring-projects/SKILL.md
+Read content/skills/structuring-projects/SKILL.md
 ```
 
 ### 3. Copy to Your Project
 
 ```bash
 # Copy specific skill
-cp -r skills/react-19 /path/to/your/project/skills/
+cp -r content/skills/react-19 /path/to/your/project/content/skills/
 
 # Copy multiple skills
-cp -r skills/{react-19,typescript,zod-4} /path/to/your/project/skills/
+cp -r content/skills/{react-19,typescript,zod-4} /path/to/your/project/content/skills/
 
 # Copy entire catalog
-cp -r skills /path/to/your/project/
+cp -r content/skills /path/to/your/project/content/
 ```
 
 ---
@@ -118,13 +118,13 @@ skill-name/
 
 ```bash
 # 1. Read the meta-skill
-cat skills/skill-creator/SKILL.md
+cat content/skills/skill-creator/SKILL.md
 
 # 2. Use the template
-cp skills/skill-creator/assets/SKILL-TEMPLATE.md skills/new-skill/SKILL.md
+cp content/skills/skill-creator/assets/SKILL-TEMPLATE.md content/skills/new-skill/SKILL.md
 
 # 3. Validate before committing
-# - Checklist in skill-creator/SKILL.md
+./scripts/validate-skills.sh
 ```
 
 **For full details**: See [skill-creator](skill-creator/SKILL.md)
@@ -156,4 +156,4 @@ cp skills/skill-creator/assets/SKILL-TEMPLATE.md skills/new-skill/SKILL.md
 
 ---
 
-**[← Back to main README](../README.md)**
+**[← Back to main README](../../README.md)**
