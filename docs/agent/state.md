@@ -1,15 +1,16 @@
 # State
 
 ## Now
-- Fase 2 CLI completada
-- Init wizard wired y funcional
+- Fase 3 comandos completada
+- Pendiente: actualizar repo remoto con estructura `content/`
 
 ## Next
-- Fase 3: Implementar comandos `add`, `remove`, `list`
-- Actualizar repo remoto con estructura `content/`
+- Push con estructura `content/skills` y `content/agents`
+- Tests unitarios (requiere repo remoto actualizado)
+- Publicar en npm
 
 ## Blockers
-- Ninguno
+- Repo remoto no tiene estructura `content/` → CLI no puede descargar skills
 
 ---
 
@@ -35,9 +36,14 @@
 | `wizards/init-wizard.ts` | ✅ Flujo interactivo completo |
 | `commands/init.ts` | ✅ Opciones: --editor, --preset, --yes |
 
-## ⏳ Fase 3 - Commands (Pending)
-- `add <skill>` - Agregar skill individual  
-- `remove <skill>` - Remover skill
-- `list` - Listar skills (--local)
-- Tests unitarios
-- Documentación README
+## ✅ Fase 3 - Commands (Complete)
+| Componente | Estado |
+|------------|--------|
+| `commands/list.ts` | ✅ --local para instalados, catálogo remoto |
+| `commands/add.ts` | ✅ Descarga e instala skill individual |
+| `commands/remove.ts` | ✅ Remueve skill y actualiza config |
+| `README.md` | ✅ Documentación completa |
+
+## ⏳ Pendiente
+- Tests unitarios (bloqueado por repo remoto)
+- npm publish

@@ -67,6 +67,16 @@ export class AlreadyInitializedError extends CliError {
   }
 }
 
+export class NotInitializedError extends CliError {
+  constructor() {
+    super(
+      "This project is not initialized",
+      "NOT_INITIALIZED",
+      ['Run "skills init" first to initialize your project']
+    );
+  }
+}
+
 export function handleError(error: unknown): never {
   if (error instanceof CliError) {
     error.print();
