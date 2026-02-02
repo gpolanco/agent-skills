@@ -71,6 +71,66 @@ describe("detection-service", () => {
       expect(stack.hasNext).toBe(false);
       expect(stack.hasReact).toBe(false);
     });
+
+    it("detects pnpm package manager", async () => {
+      await writeFile(
+        join(testDir, "package.json"),
+        JSON.stringify({
+          packageManager: "pnpm@9.0.0",
+        })
+      );
+
+      const stack = await detectStack(testDir);
+      expect(stack.packageManager).toBe("pnpm");
+    });
+
+    it("detects yarn package manager", async () => {
+      await writeFile(
+        join(testDir, "package.json"),
+        JSON.stringify({
+          packageManager: "yarn@4.0.0",
+        })
+      );
+
+      const stack = await detectStack(testDir);
+      expect(stack.packageManager).toBe("yarn");
+    });
+
+    it("detects bun package manager", async () => {
+      await writeFile(
+        join(testDir, "package.json"),
+        JSON.stringify({
+          packageManager: "bun@1.0.0",
+        })
+      );
+
+      const stack = await detectStack(testDir);
+      expect(stack.packageManager).toBe("bun");
+    });
+
+    it("defaults to npm when no packageManager field", async () => {
+      await writeFile(
+        join(testDir, "package.json"),
+        JSON.stringify({
+          dependencies: { next: "14.0.0" },
+        })
+      );
+
+      const stack = await detectStack(testDir);
+      expect(stack.packageManager).toBe("npm");
+    });
+
+    it("detects explicit npm package manager", async () => {
+      await writeFile(
+        join(testDir, "package.json"),
+        JSON.stringify({
+          packageManager: "npm@10.0.0",
+        })
+      );
+
+      const stack = await detectStack(testDir);
+      expect(stack.packageManager).toBe("npm");
+    });
   });
 
   describe("getRecommendedSkills", () => {
