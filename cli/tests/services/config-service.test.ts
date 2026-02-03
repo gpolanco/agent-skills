@@ -47,10 +47,10 @@ describe("config-service", () => {
       expect(config.skills.directory).toBe(".claude/skills");
     });
 
-    it("creates config with different path for antigravity editor", () => {
-      const config = createDefaultConfig("antigravity", ["typescript"]);
+    it("creates config with different path for gemini editor", () => {
+      const config = createDefaultConfig("gemini", ["typescript"]);
 
-      expect(config.editor).toBe("antigravity");
+      expect(config.editor).toBe("gemini");
       expect(config.skills.directory).toBe(".gemini/skills");
     });
   });
