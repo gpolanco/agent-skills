@@ -166,7 +166,7 @@ cli/
     - ✅ Generar `CHANGELOG.md` detallado
     - ✅ Sincronizar version en documentacion
     - ✅ Crear git tag `v1.0.0`
-14. ⏳ Publicar v1.0.0 en npm como `@agent-skills-sh/cli`
+14. ✅ Publicar v1.0.0 en npm como `@agent-skills-sh/cli`
 15. ✅ Automatizar Release Pipeline
     - ✅ Setup GitHub Action disparada por merge a `main`
     - ✅ Version bump automático (semantic versioning via Changesets)
