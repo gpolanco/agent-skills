@@ -1,4 +1,4 @@
-import { mkdir, cp, rm, readdir, access, readFile } from "node:fs/promises";
+import { mkdir, cp, rm, readdir, access, readFile, copyFile } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { exec } from "node:child_process";
@@ -145,9 +145,21 @@ export async function installAgent(
   agent: Agent,
   targetDir: string
 ): Promise<void> {
+  // Copy the full folder (for templates and additional assets)
   const destPath = join(targetDir, agent.id);
   await mkdir(destPath, { recursive: true });
   await cp(agent.path, destPath, { recursive: true });
+
+  // Also create a direct .md file for Claude Code subagent registration
+  // Claude Code expects: .claude/agents/<name>.md (file, not folder)
+  const agentMdSource = join(agent.path, "AGENT.md");
+  const agentMdDest = join(targetDir, `${agent.id}.md`);
+
+  try {
+    await copyFile(agentMdSource, agentMdDest);
+  } catch {
+    // If AGENT.md doesn't exist, skip the direct file creation
+  }
 }
 
 export async function removeSkill(

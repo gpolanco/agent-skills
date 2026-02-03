@@ -110,7 +110,13 @@ export function printWelcome(): void {
   console.log("");
 }
 
-export function printSuccess(skillsPath: string): void {
+export function printSuccess(options: {
+  skillsPath: string;
+  agentsPath: string;
+}): void {
+  const { skillsPath, agentsPath } = options;
+  const separator = pc.dim("-".repeat(80));
+
   console.log("");
   console.log(pc.green(pc.bold("  Installation complete!")));
   console.log("");
@@ -120,6 +126,30 @@ export function printSuccess(skillsPath: string): void {
   console.log(`    3. Start coding with your AI assistant!`);
   console.log("");
   console.log(pc.dim('  Tip: Run "skills list" to see installed skills'));
+  console.log("");
+
+  // AI Handover Guide
+  console.log(separator);
+  console.log(pc.bold(pc.cyan("  AI HANDOVER GUIDE")));
+  console.log(separator);
+  console.log("");
+  console.log(
+    "  Copy and paste the following message to your AI assistant (Claude/Cursor/Copilot):"
+  );
+  console.log("");
+  console.log(
+    pc.bgWhite(
+      pc.black(
+        '  "Analyze my project stack and configure my AGENTS.md based on the local skills catalog. Use @skill-integrator for guidance."  '
+      )
+    )
+  );
+  console.log("");
+  console.log(pc.bold("  Installed:"));
+  console.log(`    - ${pc.cyan(skillsPath + "/")}  ${pc.dim("- AI agent skills")}`);
+  console.log(`    - ${pc.cyan(agentsPath + "/")}  ${pc.dim("- Agent definitions")}`);
+  console.log(`    - ${pc.cyan("AGENTS.md")}        ${pc.dim("- Project configuration")}`);
+  console.log(separator);
   console.log("");
 }
 

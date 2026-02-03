@@ -3,25 +3,29 @@ export const EDITORS = {
     name: "Claude Code",
     skillsPath: ".claude/skills",
     agentsPath: ".claude/agents",
-    configFiles: ["AGENTS.md"],
+    configFiles: ["CLAUDE.md"],
+    supportsNativeSkills: true,
   },
   cursor: {
     name: "Cursor",
     skillsPath: ".cursor/skills",
     agentsPath: ".cursor/agents",
-    configFiles: ["AGENTS.md", ".cursorrules"],
+    configFiles: [".cursor/rules/skills.mdc", ".cursorrules"],
+    supportsNativeSkills: false,
   },
   copilot: {
     name: "GitHub Copilot",
     skillsPath: ".github/skills",
     agentsPath: ".github/agents",
-    configFiles: ["AGENTS.md", ".github/copilot-instructions.md"],
+    configFiles: [".github/copilot-instructions.md"],
+    supportsNativeSkills: false,
   },
-  antigravity: {
-    name: "Antigravity (Gemini)",
+  gemini: {
+    name: "Gemini",
     skillsPath: ".gemini/skills",
     agentsPath: ".gemini/agents",
-    configFiles: ["AGENTS.md"],
+    configFiles: [".gemini/styleguide.md", ".gemini/config.yaml"],
+    supportsNativeSkills: false,
   },
 } as const;
 
@@ -32,4 +36,5 @@ export interface EditorConfig {
   skillsPath: string;
   agentsPath: string;
   configFiles: readonly string[];
+  supportsNativeSkills: boolean;
 }

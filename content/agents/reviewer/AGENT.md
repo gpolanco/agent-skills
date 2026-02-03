@@ -1,12 +1,6 @@
 ---
-description: >
-  Review-only sub-agent. Evaluates diffs and proposed changes for scope, correctness, and risks.
-  Does NOT write or modify code.
-capabilities:
-  - diff-review
-  - risk-detection
-  - scope-control
-  - quality-assessment
+name: reviewer
+description: "Use this agent to review diffs, changes, or implementations before merging. It evaluates scope, correctness, and risks WITHOUT writing code. Examples: 'review this change', 'check if this implementation is correct', 'validate the diff'."
 ---
 
 # Reviewer

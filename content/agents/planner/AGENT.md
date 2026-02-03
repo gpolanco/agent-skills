@@ -1,13 +1,6 @@
 ---
-description: >
-  Planning-only sub-agent. Produces a minimal, executable plan for non-trivial tasks.
-  Use when the task is unclear, spans multiple files, or risks scope creep.
-capabilities:
-  - planning
-  - scope-control
-  - repo-navigation
-  - risk-assessment
-  - acceptance-criteria
+name: planner
+description: "Use this agent when the task is non-trivial, ambiguous, spans multiple files, or risks scope creep. It produces a minimal, executable plan WITHOUT writing code. Examples: 'plan the implementation of...', 'how should I approach...', 'create a plan for...'"
 ---
 
 # Planner

@@ -4,16 +4,76 @@
 - Versión 1.0.0 publicada ✅
 - Automatización operativa ✅
 - Rebranding completo ✅
+- **Corrección formato de salida CLI** ✅ (2026-02-04)
 
 ## Next
 - Evolucionar catálogo de skills
+- Probar CLI en proyecto real para validar flujo completo
+- Considerar añadir soporte para Windsurf (similar a Cursor)
 
 ## Blockers
 - Ninguno
 
 ---
 
-# Fase 6 - Multi-Editor Support
+# Sesión 2026-02-04 - Corrección Formato de Salida CLI
+
+## Problema Identificado
+El CLI generaba archivos que no funcionaban correctamente con los editores:
+1. `AGENTS.md` básico (~25 líneas) en lugar del template completo (288 líneas)
+2. Sin AI Handover Guide al finalizar instalación
+3. Agentes en carpetas (`planner/AGENT.md`) en lugar de archivos directos (`planner.md`)
+
+## Correcciones Implementadas
+
+### 1. `createAgentsMd` usa template completo
+**Archivo**: `cli/src/wizards/init-wizard.ts`
+- Lee template desde `bootstrap/templates/AGENTS.template.md`
+- Reemplaza URLs `skills/` → ruta del editor (ej: `.claude/skills/`)
+- Filtra tablas para mostrar solo skills instalados
+- Mantiene placeholders `{PROJECT_NAME}` para que el AI los complete
+
+### 2. AI Handover Guide en `printSuccess`
+**Archivo**: `cli/src/shared/ui/prompts.ts`
+- Muestra bloque con prompt copiable al finalizar
+- Rutas dinámicas según editor
+
+### 3. Rutas oficiales por editor
+**Archivo**: `cli/src/core/types/editor.types.ts`
+- Claude: `.claude/skills/`, `.claude/agents/` (soporta skills nativamente)
+- Cursor: `.cursor/rules/*.mdc` (NO soporta skills nativamente)
+- Copilot: `.github/copilot-instructions.md` (NO soporta skills nativamente)
+- Gemini: `.gemini/styleguide.md` (renombrado de `antigravity`)
+- Nueva propiedad `supportsNativeSkills: boolean`
+
+### 4. Agentes como archivos directos
+**Archivo**: `cli/src/core/services/skill-service.ts`
+- `installAgent` ahora crea AMBOS:
+  - `planner/` carpeta con recursos (templates)
+  - `planner.md` archivo directo (Claude Code lo detecta)
+
+## Verificación
+Prueba exitosa en `/tmp/test-skills-cli`:
+```
+.claude/
+├── skills/          ← 6 skills instalados
+│   ├── react-19/
+│   ├── nextjs/
+│   └── ...
+└── agents/
+    ├── planner.md   ← Claude Code detecta
+    ├── planner/     ← Recursos adicionales
+    ├── reviewer.md  ← Claude Code detecta
+    └── reviewer/
+```
+
+## Investigación Adicional
+- Documento de análisis de `your-claude-engineer`: `docs/research/your-claude-engineer-analysis.md`
+- Útil para futuras funcionalidades: arquitectura multi-agente, Playwright para tests UI
+
+---
+
+# Fase 6 - Multi-Editor Support ✅
 
 ## Objetivo
 Generar archivos de configuración específicos para que cada editor sepa usar los skills instalados.
@@ -24,21 +84,23 @@ Generar archivos de configuración específicos para que cada editor sepa usar l
 ```
 proyecto/
 ├── .skillsrc.json
-├── AGENTS.md
+├── AGENTS.md              ← Template completo con placeholders
 ├── .claude/
 │   ├── skills/
 │   │   ├── typescript/SKILL.md
 │   │   ├── react-19/SKILL.md
 │   │   └── ...
 │   └── agents/
-│       ├── planner/AGENT.md
-│       └── reviewer/AGENT.md
+│       ├── planner.md     ← Archivo directo (detectado por Claude)
+│       ├── planner/       ← Carpeta con recursos adicionales
+│       ├── reviewer.md    ← Archivo directo (detectado por Claude)
+│       └── reviewer/
 └── docs/agent/
     ├── state.md
     ├── decisions.md
     └── plans/
 ```
-**Nota**: Claude Code detecta automáticamente skills en `.claude/skills/`.
+**Nota**: Claude Code detecta automáticamente skills en `.claude/skills/` y agents en `.claude/agents/*.md`.
 
 ### Cursor
 ```
@@ -92,6 +154,10 @@ proyecto/
 | Crear template `.cursorrules` | ✅ Completado |
 | Crear template `copilot-instructions.md` | ✅ Completado |
 | Generar archivos en `init-wizard.ts` | ✅ Completado |
+| Usar template completo de AGENTS.md | ✅ Completado (2026-02-04) |
+| Mostrar AI Handover Guide | ✅ Completado (2026-02-04) |
+| Corregir formato de agentes (.md directo) | ✅ Completado (2026-02-04) |
+| Actualizar rutas oficiales por editor | ✅ Completado (2026-02-04) |
 | Tests para generación de config | ⏳ Pendiente (35 tests existentes pasan) |
 
 ---
