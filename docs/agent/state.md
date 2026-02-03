@@ -51,10 +51,10 @@
 - Crear git tag v1.0.0 (✅ Done)
 - npm publish v1.0.0
 
-## ⏳ Fase 5 - Automation (Pending)
+## ✅ Fase 5 - Automation (Complete)
 - Automatizar Version/Changelog/Publish pipeline:
-  - Disparado por merge a `main`
-  - Version bump automático (semantic versioning)
-  - Actualización automática de `CHANGELOG.md`
-  - `npm publish` automático desde CI
-  - Creación de GitHub Release con el tag correspondiente
+  - ✅ Disparado por merge a `main`
+  - ✅ Version bump automático (semantic versioning via Changesets)
+  - ✅ Actualización automática de `CHANGELOG.md`
+  - ✅ `npm publish` automático desde CI
+  - ✅ Creación de GitHub Release con el tag correspondiente
