@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2026-02-03
 
 ### Added
-- **@agent-skills/cli**: New interactive CLI tool to manage AI agent skills.
+- **@agent-skills-sh/cli**: New interactive CLI tool to manage AI agent skills.
   - `skills init`: Interactive wizard for project setup, tech stack detection, and editor configuration.
   - `skills list`: Catalog and local skill management.
   - `skills add`: Install individual skills from remote repository.

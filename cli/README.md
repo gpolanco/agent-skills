@@ -1,4 +1,4 @@
-# @agent-skills/cli
+# @agent-skills-sh/cli
 
 CLI interactiva para gestionar AI agent skills en tu proyecto.
 
@@ -6,10 +6,10 @@ CLI interactiva para gestionar AI agent skills en tu proyecto.
 
 ```bash
 # Con npx (recomendado)
-npx @agent-skills/cli init
+npx @agent-skills-sh/cli init
 
 # Global
-npm install -g @agent-skills/cli
+npm install -g @agent-skills-sh/cli
 skills init
 ```
 

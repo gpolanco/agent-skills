@@ -45,8 +45,8 @@ jobs:
 
       - name: Build and Test
         run: |
-          pnpm --filter "@agent-skills/cli" run build
-          pnpm --filter "@agent-skills/cli" run test
+          pnpm --filter "@agent-skills-sh/cli" run build
+          pnpm --filter "@agent-skills-sh/cli" run test
 
       - name: Create Release PR or Publish
         id: changesets

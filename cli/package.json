@@ -1,5 +1,5 @@
 {
-  "name": "@agent-skills/cli",
+  "name": "@agent-skills-sh/cli",
   "version": "1.0.0",
   "description": "CLI for managing AI agent skills",
   "type": "module",

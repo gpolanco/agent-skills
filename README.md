@@ -61,7 +61,7 @@ sequenceDiagram
 Transform your project in **30 seconds** using the official CLI:
 
 ```bash
-npx @agent-skills/cli init
+npx @agent-skills-sh/cli init
 ```
 
 *Or use the legacy bootstrap script:*
