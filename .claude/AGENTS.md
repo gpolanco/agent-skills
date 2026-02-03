@@ -9,7 +9,7 @@
 **Structure:**
 
 ```
-agent-skills/
+agent-skills-sh/
 ├── content/                     # Consumable content
 │   ├── skills/                  # Individual skills
 │   │   ├── skill-creator/       # Meta skill for creating skills

@@ -86,7 +86,7 @@ curl -sSL https://agent-skills.sh/init.sh | bash
 ## Repository Structure
 
 ```
-agent-skills/
+agent-skills-sh/
 │
 ├── content/                      # Consumable content
 │   ├── skills/                   # AI agent skills

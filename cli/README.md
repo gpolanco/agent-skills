@@ -74,7 +74,7 @@ Después de `skills init`, se crea `.skillsrc.json`:
     "active": ["planner", "reviewer"]
   },
   "source": {
-    "repo": "gpolanco/agent-skills",
+    "repo": "gpolanco/agent-skills-sh",
     "branch": "main"
   }
 }

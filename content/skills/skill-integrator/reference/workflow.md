@@ -106,7 +106,7 @@ If the user says yes → continue.
    - `${SKILLS_DIR}/../templates/SKILLS_README.template.md`
    - `${SKILLS_DIR}/../templates/plans/TEMPLATE.md`
 2. If not found locally, fallback to remote fetch:
-   - `https://raw.githubusercontent.com/gpolanco/agent-skills/main/templates/...`
+   - `https://raw.githubusercontent.com/gpolanco/agent-skills-sh/main/templates/...`
 3. If neither works, stop and ask the user.
 
 Rules:

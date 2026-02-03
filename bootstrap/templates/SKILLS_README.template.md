@@ -1,6 +1,6 @@
 <!--
   CRITICAL: This file is orchestrated by the @skill-integrator meta-skill.
-  Source of Truth (Template): https://raw.githubusercontent.com/gpolanco/agent-skills/main/templates/SKILLS_README.template.md
+  Source of Truth (Template): https://raw.githubusercontent.com/gpolanco/agent-skills-sh/main/templates/SKILLS_README.template.md
   DO NOT "summarize" or "exaggerate" the content. Follow the template headers exactly.
 -->
 
@@ -28,4 +28,4 @@ This directory contains AI Agent Skills that teach coding assistants our archite
 
 ---
 
-_Generated via [Agent Skills](https://github.com/gpolanco/agent-skills)_
+_Generated via [Agent Skills](https://github.com/gpolanco/agent-skills-sh)_

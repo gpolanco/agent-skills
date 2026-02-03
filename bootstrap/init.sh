@@ -9,8 +9,8 @@ BLUE='\033[0;34m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-REPO_NAME="agent-skills"
-ZIP_URL="https://github.com/gpolanco/agent-skills/archive/refs/heads/main.zip"
+REPO_NAME="agent-skills-sh"
+ZIP_URL="https://github.com/gpolanco/agent-skills-sh/archive/refs/heads/main.zip"
 TEMP_DIR=".skills_temp"
 
 echo -e "${BLUE}Initializing Bulk AI Agent Skills...${NC}"
