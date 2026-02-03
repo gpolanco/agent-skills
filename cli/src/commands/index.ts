@@ -4,10 +4,12 @@ import { registerListCommand } from "./list.js";
 import { registerAddCommand } from "./add.js";
 import { registerRemoveCommand } from "./remove.js";
 
+import { CLI_NAME } from "../core/constants.js";
+
 const program = new Command();
 
 program
-  .name("skills")
+  .name(CLI_NAME)
   .description("CLI for managing AI agent skills")
   .version("1.0.0");
 

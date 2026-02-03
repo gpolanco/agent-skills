@@ -4,6 +4,7 @@ import { tmpdir } from "node:os";
 import { exec } from "node:child_process";
 import { promisify } from "node:util";
 import type { Skill, Agent, SkillMetadata } from "../types/skill.types.js";
+import { DEFAULT_REPO, DEFAULT_BRANCH } from "../constants.js";
 
 const execAsync = promisify(exec);
 
@@ -17,7 +18,7 @@ export interface DownloadOptions {
 export async function downloadRepository(
   options: DownloadOptions = {}
 ): Promise<string> {
-  const { repo = "gpolanco/skills-as-context", branch = "main" } = options;
+  const { repo = DEFAULT_REPO, branch = DEFAULT_BRANCH } = options;
   const tempDir = join(tmpdir(), `skills-${Date.now()}`);
   const zipUrl = `https://github.com/${repo}/archive/refs/heads/${branch}.zip`;
 

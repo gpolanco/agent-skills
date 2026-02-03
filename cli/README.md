@@ -1,4 +1,4 @@
-# @skills-as-context/cli
+# @agent-skills/cli
 
 CLI interactiva para gestionar AI agent skills en tu proyecto.
 
@@ -6,10 +6,10 @@ CLI interactiva para gestionar AI agent skills en tu proyecto.
 
 ```bash
 # Con npx (recomendado)
-npx @skills-as-context/cli init
+npx @agent-skills/cli init
 
 # Global
-npm install -g @skills-as-context/cli
+npm install -g @agent-skills/cli
 skills init
 ```
 
@@ -72,6 +72,10 @@ Después de `skills init`, se crea `.skillsrc.json`:
   "agents": {
     "directory": "content/agents",
     "active": ["planner", "reviewer"]
+  },
+  "source": {
+    "repo": "gpolanco/agent-skills",
+    "branch": "main"
   }
 }
 ```

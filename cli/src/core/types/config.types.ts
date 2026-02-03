@@ -1,5 +1,6 @@
 import { z } from "zod";
 import type { EditorId } from "./editor.types.js";
+import { DEFAULT_REPO, DEFAULT_BRANCH } from "../constants.js";
 
 export const ConfigFileSchema = z.object({
   version: z.string().default("1.0.0"),
@@ -18,8 +19,8 @@ export const ConfigFileSchema = z.object({
   }),
   source: z
     .object({
-      repo: z.string().default("gpolanco/skills-as-context"),
-      branch: z.string().default("main"),
+      repo: z.string().default(DEFAULT_REPO),
+      branch: z.string().default(DEFAULT_BRANCH),
     })
     .optional(),
 });

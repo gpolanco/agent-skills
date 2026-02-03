@@ -49,7 +49,7 @@ Use this skill **in external projects (consumer repos)** when the user asks to:
 * generate or sync `skills/README.md` as a catalog view
 * adopt skills after a stack change (e.g. added `zod`, `supabase`, `tailwind`)
 
-Do **NOT** use this skill to maintain or modify the **skills-as-context** repository itself.
+Do **NOT** use this skill to maintain or modify the **agent-skills** repository itself.
 
 ---
 

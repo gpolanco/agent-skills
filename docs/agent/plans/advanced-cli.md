@@ -1,8 +1,8 @@
-# Plan: Advanced CLI for skills-as-context
+# Plan: Advanced CLI for Agent Skills
 
 ## Goal
 
-Crear una CLI interactiva (`@skills-as-context/cli`) que reemplace `init-agent.sh` con soporte para seleccion de editor, skills, y agentes.
+Crear una CLI interactiva (`@agent-skills/cli`) que reemplace `init-agent.sh` con soporte para seleccion de editor, skills, y agentes.
 
 ## Problema Actual
 
@@ -87,7 +87,7 @@ cli/                          # Carpeta en la raiz del repo
 **Instalacion para usuarios:**
 ```bash
 # Opcion 1: npx directo
-npx @skills-as-context/cli init
+npx @agent-skills/cli init
 
 # Opcion 2: curl + node (sin npm publish)
 curl -sSL .../cli/dist/index.js | node -
@@ -166,7 +166,7 @@ cli/
     - ✅ Generar `CHANGELOG.md` detallado
     - ✅ Sincronizar version en documentacion
     - ✅ Crear git tag `v1.0.0`
-14. ⏳ Publicar v1.0.0 en npm como `@skills-as-context/cli`
+14. ⏳ Publicar v1.0.0 en npm como `@agent-skills/cli`
 15. ⏳ Automatizar Release Pipeline
     - Setup GitHub Action disparada por merge a `main`
     - Version bump automático (semantic versioning)
@@ -177,7 +177,7 @@ cli/
 
 ## Verificacion
 
-1. `npx @skills-as-context/cli init` → wizard funciona
+1. `npx @agent-skills/cli init` → wizard funciona
 2. Auto-deteccion correcta de Next.js/React/etc.
 3. Skills se copian al directorio correcto segun editor
 4. `.skillsrc.json` se crea con configuracion valida

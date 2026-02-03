@@ -1,6 +1,6 @@
 <!--
   CRITICAL: This file is orchestrated by the @skill-integrator meta-skill.
-  Source of Truth (Template): https://raw.githubusercontent.com/gpolanco/skills-as-context/main/templates/AGENTS.template.md
+  Source of Truth (Template): https://raw.githubusercontent.com/gpolanco/agent-skills/main/templates/AGENTS.template.md
   DO NOT modify the table structures or headers.
 -->
 

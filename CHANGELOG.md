@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2026-02-03
 
 ### Added
-- **@skills-as-context/cli**: New interactive CLI tool to manage AI agent skills.
+- **@agent-skills/cli**: New interactive CLI tool to manage AI agent skills.
   - `skills init`: Interactive wizard for project setup, tech stack detection, and editor configuration.
   - `skills list`: Catalog and local skill management.
   - `skills add`: Install individual skills from remote repository.
@@ -24,6 +24,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Agent definitions with new structure (`AGENT.md` + `templates/`).
 
 ### Changed
+- **Rebranding**: Project renamed from `skills-as-context` to `agent-skills`.
+- Official domain: `agent-skills.sh`.
 - Moved `skills/` to `content/skills/`
 - Moved `agents/` to `content/agents/`
 - Restructured agents from `*.template.md` to `<name>/AGENT.md` + `templates/`

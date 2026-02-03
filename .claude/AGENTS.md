@@ -2,14 +2,14 @@
 
 ## Project Overview
 
-**skills-as-context** is a personal collection of AI Agent Skills.
+**Agent Skills** is a personal collection of AI Agent Skills.
 
 **Purpose**: Provide production-ready skills that teach AI assistants best practices, architectural patterns, and coding conventions.
 
 **Structure:**
 
 ```
-skills-as-context/
+agent-skills/
 ├── content/                     # Consumable content
 │   ├── skills/                  # Individual skills
 │   │   ├── skill-creator/       # Meta skill for creating skills

@@ -2,6 +2,7 @@ import { readFile, writeFile, access } from "node:fs/promises";
 import { join } from "node:path";
 import { ConfigFileSchema, type ConfigFile } from "../types/config.types.js";
 import { EDITORS, type EditorId } from "../types/editor.types.js";
+import { DEFAULT_REPO, DEFAULT_BRANCH } from "../constants.js";
 
 const CONFIG_FILE_NAME = ".skillsrc.json";
 
@@ -57,8 +58,8 @@ export function createDefaultConfig(
       directory: "docs/agent",
     },
     source: {
-      repo: "gpolanco/skills-as-context",
-      branch: "main",
+      repo: DEFAULT_REPO,
+      branch: DEFAULT_BRANCH,
     },
   };
 }

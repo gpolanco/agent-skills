@@ -1,11 +1,11 @@
 <div align="center">
 
-# Skills as Context
+# Agent Skills
 
-**My Personal Collection of AI Agent Skills**
+**Personal Collection of AI Agent Skills & CLI Tool**
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![Standard](https://img.shields.io/badge/standard-Agent_Skills-purple.svg)](https://agentskills.io)
+[![Standard](https://img.shields.io/badge/standard-Agent_Skills-purple.svg)](https://agent-skills.sh)
 [![Status](https://img.shields.io/badge/status-active-success.svg)](#)
 
 <p align="center">
@@ -29,7 +29,7 @@ This is a **personal and opinionated collection of AI agent skills**, tailored t
 
 ---
 
-## Why Skills?
+## Why Agent Skills?
 
 This repository houses the **coding standards, architectural patterns, and best practices** adapted specifically for **my projects**. It serves as persistent memory for my AI assistants (Claude, Cursor, Copilot), ensuring they always work the way I do.
 
@@ -58,10 +58,15 @@ sequenceDiagram
 
 ## Quick Start
 
-Transform your project in **30 seconds**. Run this command at your project root:
+Transform your project in **30 seconds** using the official CLI:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/gpolanco/skills-as-context/main/bootstrap/init.sh | bash
+npx @agent-skills/cli init
+```
+
+*Or use the legacy bootstrap script:*
+```bash
+curl -sSL https://agent-skills.sh/init.sh | bash
 ```
 
 **That's it.** You now have a `content/skills/` folder populated with the standard catalog.
@@ -81,7 +86,7 @@ curl -sSL https://raw.githubusercontent.com/gpolanco/skills-as-context/main/boot
 ## Repository Structure
 
 ```
-skills-as-context/
+agent-skills/
 │
 ├── content/                      # Consumable content
 │   ├── skills/                   # AI agent skills
@@ -144,7 +149,7 @@ Sub-agents that handle specific roles. They **think and evaluate** — they do n
 ### When to use agents
 
 | Scenario | Use agent? |
-| :--- | :--- |
+| :--- | :--- | :--- |
 | Task is ambiguous or spans multiple files | Planner |
 | Architectural decision or trade-off involved | Planner |
 | Risk of scope creep | Planner |
@@ -170,6 +175,6 @@ This repository is structured to support multiple AI-powered editors:
 ---
 
 <div align="center">
-  <p>Standardized by <a href="https://agentskills.io">AgentSkills.io</a></p>
+  <p>Standardized by <a href="https://agent-skills.sh">Agent-Skills.sh</a></p>
   <p><i>Empowering developers to build better, faster, and smarter.</i></p>
 </div>
