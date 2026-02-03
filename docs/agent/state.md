@@ -4,12 +4,14 @@
 - Versión 1.0.0 publicada ✅
 - Automatización operativa ✅
 - Rebranding completo ✅
-- **Corrección formato de salida CLI** ✅ (2026-02-04)
+- Corrección formato de salida CLI ✅ (2026-02-04)
+- Formato de agentes compatible con Claude Code ✅ (2026-02-04)
 
 ## Next
-- Evolucionar catálogo de skills
+- Publicar v1.0.1 con correcciones (pending push + release)
 - Probar CLI en proyecto real para validar flujo completo
 - Considerar añadir soporte para Windsurf (similar a Cursor)
+- Evolucionar catálogo de skills
 
 ## Blockers
 - Ninguno
@@ -51,6 +53,22 @@ El CLI generaba archivos que no funcionaban correctamente con los editores:
 - `installAgent` ahora crea AMBOS:
   - `planner/` carpeta con recursos (templates)
   - `planner.md` archivo directo (Claude Code lo detecta)
+
+### 5. Formato de agentes compatible con Claude Code
+**Archivos**: `content/agents/*/AGENT.md`
+- Claude Code requiere `name:` en el frontmatter
+- Formato anterior (no detectado):
+  ```yaml
+  description: >
+    Planning-only sub-agent...
+  capabilities:
+    - planning
+  ```
+- Formato correcto (detectado):
+  ```yaml
+  name: planner
+  description: "Use this agent when..."
+  ```
 
 ## Verificación
 Prueba exitosa en `/tmp/test-skills-cli`:
@@ -121,21 +139,13 @@ proyecto/
 ├── .skillsrc.json
 ├── AGENTS.md
 ├── .github/
-│   ├── copilot-instructions.md   ← FALTA GENERAR
+│   ├── copilot-instructions.md
 │   ├── skills/
-│   │   ├── typescript/SKILL.md
-│   │   └── ...
 │   └── agents/
-│       ├── planner/AGENT.md
-│       └── reviewer/AGENT.md
 └── docs/agent/
 ```
-**`.github/copilot-instructions.md`** debe contener:
-- Instrucciones para usar skills en `.github/skills/`
-- Referencias a agents disponibles
-- Patrones de uso de memoria
 
-### Antigravity (Gemini)
+### Gemini
 ```
 proyecto/
 ├── .skillsrc.json
@@ -145,7 +155,6 @@ proyecto/
 │   └── agents/
 └── docs/agent/
 ```
-**Nota**: Antigravity lee archivos `.gemini/` automáticamente.
 
 ## Tareas
 
@@ -158,6 +167,7 @@ proyecto/
 | Mostrar AI Handover Guide | ✅ Completado (2026-02-04) |
 | Corregir formato de agentes (.md directo) | ✅ Completado (2026-02-04) |
 | Actualizar rutas oficiales por editor | ✅ Completado (2026-02-04) |
+| Formato agentes con `name:` para Claude Code | ✅ Completado (2026-02-04) |
 | Tests para generación de config | ⏳ Pendiente (35 tests existentes pasan) |
 
 ---
