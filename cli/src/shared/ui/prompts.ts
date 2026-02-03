@@ -105,7 +105,7 @@ export async function askProjectName(): Promise<string> {
 
 export function printWelcome(): void {
   console.log("");
-  console.log(pc.bold(pc.cyan("  Skills as Context")));
+  console.log(pc.bold(pc.cyan("  Agent Skills")));
   console.log(pc.dim("  AI Agent Skills Manager"));
   console.log("");
 }
