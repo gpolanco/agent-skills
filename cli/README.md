@@ -1,11 +1,11 @@
 # @agent-skills-sh/cli
 
-CLI interactiva para gestionar AI agent skills en tu proyecto.
+Interactive CLI to manage AI agent skills in your project.
 
-## Instalación
+## Installation
 
 ```bash
-# Con npx (recomendado)
+# With npx (recommended)
 npx @agent-skills-sh/cli init
 
 # Global
@@ -13,64 +13,64 @@ npm install -g @agent-skills-sh/cli
 skills init
 ```
 
-## Comandos
+## Commands
 
 ### `skills init`
 
-Inicializa skills en tu proyecto con un wizard interactivo.
+Initialize skills in your project with an interactive wizard.
 
 ```bash
-skills init                          # Wizard interactivo
-skills init --editor claude          # Especificar editor
-skills init --preset nextjs          # Usar preset
-skills init --yes                    # Non-interactive, usar defaults
+skills init                          # Interactive wizard
+skills init --editor claude          # Specify editor
+skills init --preset nextjs          # Use preset
+skills init --yes                    # Non-interactive, use defaults
 ```
 
-**Opciones:**
+**Options:**
 - `-e, --editor <editor>` - Editor: claude, cursor, copilot, antigravity
 - `-p, --preset <preset>` - Preset: nextjs, react, node, full
-- `-y, --yes` - Saltar prompts, usar configuración por defecto
+- `-y, --yes` - Skip prompts, use default configuration
 
 ### `skills list`
 
-Lista skills disponibles e instalados.
+List available and installed skills.
 
 ```bash
-skills list           # Muestra catálogo completo
-skills list --local   # Muestra solo skills instalados
+skills list           # Show full catalog
+skills list --local   # Show only installed skills
 ```
 
 ### `skills add <skill>`
 
-Agrega un skill a tu proyecto.
+Add a skill to your project.
 
 ```bash
-skills add forms      # Instala skill de forms
-skills add zod-4      # Instala skill de Zod 4
+skills add forms      # Install forms skill
+skills add zod-4      # Install Zod 4 skill
 ```
 
 ### `skills remove <skill>`
 
-Remueve un skill de tu proyecto.
+Remove a skill from your project.
 
 ```bash
-skills remove forms   # Remueve skill de forms
+skills remove forms   # Remove forms skill
 ```
 
-## Configuración
+## Configuration
 
-Después de `skills init`, se crea `.skillsrc.json`:
+After `skills init`, a `.skillsrc.json` file is created:
 
 ```json
 {
   "version": "1.0.0",
   "editor": "claude",
   "skills": {
-    "directory": "content/skills",
+    "directory": ".claude/skills",
     "active": ["react-19", "nextjs", "typescript"]
   },
   "agents": {
-    "directory": "content/agents",
+    "directory": ".claude/agents",
     "active": ["planner", "reviewer"]
   },
   "source": {
@@ -80,14 +80,14 @@ Después de `skills init`, se crea `.skillsrc.json`:
 }
 ```
 
-## Editores Soportados
+## Supported Editors
 
 | Editor | Skills Path | Agents Path |
 |--------|-------------|-------------|
-| Claude Code | `content/skills/` | `content/agents/` |
-| Cursor | `content/skills/` | `content/agents/` |
-| Antigravity | `.gemini/skills/` | `.gemini/agents/` |
+| Claude Code | `.claude/skills/` | `.claude/agents/` |
+| Cursor | `.cursor/skills/` | `.cursor/agents/` |
 | GitHub Copilot | `.github/skills/` | `.github/agents/` |
+| Antigravity | `.gemini/skills/` | `.gemini/agents/` |
 
 ## Presets
 
@@ -96,9 +96,9 @@ Después de `skills init`, se crea `.skillsrc.json`:
 | `nextjs` | react-19, nextjs, typescript, tailwind-4, zod-4, structuring-projects |
 | `react` | react-19, typescript, tailwind-4, zod-4, structuring-projects |
 | `node` | typescript, zod-4, structuring-projects |
-| `full` | Todos los skills disponibles |
+| `full` | All available skills |
 
-## Desarrollo
+## Development
 
 ```bash
 cd cli
