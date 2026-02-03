@@ -1,14 +1,14 @@
 export const EDITORS = {
   claude: {
     name: "Claude Code",
-    skillsPath: "content/skills",
-    agentsPath: "content/agents",
+    skillsPath: ".claude/skills",
+    agentsPath: ".claude/agents",
     configFiles: ["AGENTS.md"],
   },
   cursor: {
     name: "Cursor",
-    skillsPath: "content/skills",
-    agentsPath: "content/agents",
+    skillsPath: ".cursor/skills",
+    agentsPath: ".cursor/agents",
     configFiles: ["AGENTS.md", ".cursorrules"],
   },
   copilot: {

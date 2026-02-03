@@ -44,7 +44,7 @@ describe("config-service", () => {
       expect(config.version).toBe("1.0.0");
       expect(config.editor).toBe("claude");
       expect(config.skills.active).toEqual(["react-19", "nextjs"]);
-      expect(config.skills.directory).toBe("content/skills");
+      expect(config.skills.directory).toBe(".claude/skills");
     });
 
     it("creates config with different path for antigravity editor", () => {

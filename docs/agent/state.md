@@ -25,7 +25,7 @@ Generar archivos de configuración específicos para que cada editor sepa usar l
 proyecto/
 ├── .skillsrc.json
 ├── AGENTS.md
-├── content/
+├── .claude/
 │   ├── skills/
 │   │   ├── typescript/SKILL.md
 │   │   ├── react-19/SKILL.md
@@ -38,23 +38,20 @@ proyecto/
     ├── decisions.md
     └── plans/
 ```
-**Nota**: Claude Code lee automáticamente archivos en `content/` si se referencia en CLAUDE.md o mediante includes.
+**Nota**: Claude Code detecta automáticamente skills en `.claude/skills/`.
 
 ### Cursor
 ```
 proyecto/
 ├── .skillsrc.json
-├── .cursorrules              ← FALTA GENERAR
+├── .cursorrules
 ├── AGENTS.md
-├── content/
+├── .cursor/
 │   ├── skills/
 │   └── agents/
 └── docs/agent/
 ```
-**`.cursorrules`** debe contener:
-- Instrucciones para leer skills desde `content/skills/`
-- Referencias a agents disponibles
-- Patrones de uso de memoria en `docs/agent/`
+**`.cursorrules`** contiene instrucciones para usar skills en `.cursor/skills/`.
 
 ### GitHub Copilot
 ```
