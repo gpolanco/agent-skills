@@ -23,3 +23,11 @@ Función que hace llamadas de red (`curl`, `unzip`) se excluye de unit tests. Cu
 
 ### Coverage target: 85% services
 Objetivo de cobertura para services alcanzado (91%). Prioriza tests de lógica de negocio sobre funciones de I/O.
+
+### Archivos de configuración por editor
+Cada editor genera archivos específicos para instruir al AI sobre cómo usar los skills:
+- **Claude/Antigravity**: Solo `AGENTS.md` (leen directorios automáticamente)
+- **Cursor**: `.cursorrules` con lista de skills y workflow
+- **Copilot**: `.github/copilot-instructions.md` con instrucciones equivalentes
+
+Implementado en `init-wizard.ts` con funciones `createCursorRules()` y `createCopilotInstructions()`.

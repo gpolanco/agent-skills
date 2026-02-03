@@ -190,6 +190,9 @@ export async function runInitWizard(
     // Create AGENTS.md if it doesn't exist
     await createAgentsMd(cwd, editor, selectedSkills);
 
+    // Create editor-specific config files
+    await createEditorConfig(cwd, editor, selectedSkills, selectedAgents);
+
     // Initialize agent memory structure
     await initializeAgentMemory(cwd);
 
@@ -276,4 +279,96 @@ async function initializeAgentMemory(cwd: string): Promise<void> {
 - **Impact**: ...
 `;
   await writeFile(join(memoryPath, "decisions.md"), decisionsContent, "utf-8");
+}
+
+async function createEditorConfig(
+  cwd: string,
+  editor: EditorId,
+  skills: string[],
+  agents: string[]
+): Promise<void> {
+  const editorConfig = EDITORS[editor];
+
+  if (editor === "cursor") {
+    await createCursorRules(cwd, editorConfig.skillsPath, editorConfig.agentsPath, skills, agents);
+  } else if (editor === "copilot") {
+    await createCopilotInstructions(cwd, editorConfig.skillsPath, editorConfig.agentsPath, skills, agents);
+  }
+  // claude and antigravity don't need additional config files
+}
+
+async function createCursorRules(
+  cwd: string,
+  skillsPath: string,
+  agentsPath: string,
+  skills: string[],
+  agents: string[]
+): Promise<void> {
+  const content = `# Cursor Rules
+
+## Skills
+This project uses AI agent skills located in \`${skillsPath}/\`.
+
+Before starting any task, read the relevant skill files:
+${skills.map((s) => `- \`${skillsPath}/${s}/SKILL.md\``).join("\n")}
+
+Each skill contains patterns, best practices, and code examples. Follow them strictly.
+
+## Agents
+Available agents in \`${agentsPath}/\`:
+${agents.map((a) => `- \`${agentsPath}/${a}/AGENT.md\``).join("\n")}
+
+## Memory
+Use \`docs/agent/\` to maintain context across sessions:
+- \`state.md\` - Current progress and blockers
+- \`decisions.md\` - Key technical decisions
+- \`plans/\` - Implementation plans
+
+## Workflow
+1. Read relevant skills before writing code
+2. Check \`docs/agent/state.md\` for current context
+3. Follow patterns from skill files
+4. Document decisions in \`docs/agent/decisions.md\`
+`;
+
+  await writeFile(join(cwd, ".cursorrules"), content, "utf-8");
+}
+
+async function createCopilotInstructions(
+  cwd: string,
+  skillsPath: string,
+  agentsPath: string,
+  skills: string[],
+  agents: string[]
+): Promise<void> {
+  const githubDir = join(cwd, ".github");
+  await mkdir(githubDir, { recursive: true });
+
+  const content = `# Copilot Instructions
+
+## Skills
+This project uses AI agent skills. Before coding, read the relevant skill files:
+
+${skills.map((s) => `- \`${skillsPath}/${s}/SKILL.md\``).join("\n")}
+
+Each skill contains patterns and best practices. Follow them strictly.
+
+## Agents
+Available agents:
+${agents.map((a) => `- \`${agentsPath}/${a}/AGENT.md\``).join("\n")}
+
+## Memory
+Maintain context using \`docs/agent/\`:
+- \`state.md\` - Current progress and blockers
+- \`decisions.md\` - Key technical decisions
+- \`plans/\` - Implementation plans
+
+## Workflow
+1. Read relevant skills before implementing
+2. Check current state in \`docs/agent/state.md\`
+3. Follow skill patterns
+4. Document decisions in \`docs/agent/decisions.md\`
+`;
+
+  await writeFile(join(githubDir, "copilot-instructions.md"), content, "utf-8");
 }

@@ -7,10 +7,95 @@
 
 ## Next
 - Evolucionar catálogo de skills
-- Mejorar soporte multi-editor
 
 ## Blockers
 - Ninguno
+
+---
+
+# Fase 6 - Multi-Editor Support
+
+## Objetivo
+Generar archivos de configuración específicos para que cada editor sepa usar los skills instalados.
+
+## Estructura por Editor
+
+### Claude Code
+```
+proyecto/
+├── .skillsrc.json
+├── AGENTS.md
+├── content/
+│   ├── skills/
+│   │   ├── typescript/SKILL.md
+│   │   ├── react-19/SKILL.md
+│   │   └── ...
+│   └── agents/
+│       ├── planner/AGENT.md
+│       └── reviewer/AGENT.md
+└── docs/agent/
+    ├── state.md
+    ├── decisions.md
+    └── plans/
+```
+**Nota**: Claude Code lee automáticamente archivos en `content/` si se referencia en CLAUDE.md o mediante includes.
+
+### Cursor
+```
+proyecto/
+├── .skillsrc.json
+├── .cursorrules              ← FALTA GENERAR
+├── AGENTS.md
+├── content/
+│   ├── skills/
+│   └── agents/
+└── docs/agent/
+```
+**`.cursorrules`** debe contener:
+- Instrucciones para leer skills desde `content/skills/`
+- Referencias a agents disponibles
+- Patrones de uso de memoria en `docs/agent/`
+
+### GitHub Copilot
+```
+proyecto/
+├── .skillsrc.json
+├── AGENTS.md
+├── .github/
+│   ├── copilot-instructions.md   ← FALTA GENERAR
+│   ├── skills/
+│   │   ├── typescript/SKILL.md
+│   │   └── ...
+│   └── agents/
+│       ├── planner/AGENT.md
+│       └── reviewer/AGENT.md
+└── docs/agent/
+```
+**`.github/copilot-instructions.md`** debe contener:
+- Instrucciones para usar skills en `.github/skills/`
+- Referencias a agents disponibles
+- Patrones de uso de memoria
+
+### Antigravity (Gemini)
+```
+proyecto/
+├── .skillsrc.json
+├── AGENTS.md
+├── .gemini/
+│   ├── skills/
+│   └── agents/
+└── docs/agent/
+```
+**Nota**: Antigravity lee archivos `.gemini/` automáticamente.
+
+## Tareas
+
+| Tarea | Estado |
+|-------|--------|
+| Crear template `.cursorrules` | ✅ Completado |
+| Crear template `copilot-instructions.md` | ✅ Completado |
+| Generar archivos en `init-wizard.ts` | ✅ Completado |
+| Tests para generación de config | ⏳ Pendiente (35 tests existentes pasan) |
 
 ---
 
