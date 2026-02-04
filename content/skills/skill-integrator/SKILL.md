@@ -75,11 +75,11 @@ Do **NOT** use this skill to maintain or modify the **agent-skills** repository 
 * **Discover first**: inspect `package.json`, project `README.md`, and the directory structure.
 * **Select minimal, relevant skills**: only those that match the detected stack.
 * **Preserve project intent**: do not overwrite existing custom rules without surfacing them.
-* **Use canonical templates** (fetched as raw content):
-
-  * `templates/AGENTS.template.md`
-  * `templates/SKILLS_README.template.md`
-  * `templates/plans/TEMPLATE.md`
+* **Use local templates first** (in this skill's `assets/` folder):
+  * `assets/AGENTS.template.md`
+  * `assets/SKILLS_README.template.md`
+* **If AGENTS.md already exists** (created by CLI), use it as base - only fill placeholders.
+* **Only fetch remotely as last resort** if local templates are not found.
 * **Copy templates exactly**: fill placeholders only, keep headings and table structures intact.
 
 ### NEVER

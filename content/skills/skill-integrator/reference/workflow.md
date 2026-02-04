@@ -99,15 +99,22 @@ If the user says yes → continue.
 
 ## Phase 4 — Orchestration (write files)
 
-### Step 4.1 — Locate canonical templates
+### Step 4.1 — Locate templates (local-first)
 
-1. Read templates from the local skills directory:
-   - `${SKILLS_DIR}/../templates/AGENTS.template.md`
-   - `${SKILLS_DIR}/../templates/SKILLS_README.template.md`
-   - `${SKILLS_DIR}/../templates/plans/TEMPLATE.md`
-2. If not found locally, fallback to remote fetch:
-   - `https://raw.githubusercontent.com/gpolanco/agent-skills-sh/main/templates/...`
-3. If neither works, stop and ask the user.
+Templates should be found locally. Only fetch remotely as last resort.
+
+**Search order for AGENTS.md template:**
+1. Use existing `AGENTS.md` as base (if created by CLI, it already has the template structure)
+2. Check `${SKILLS_DIR}/skill-integrator/assets/AGENTS.template.md` (if skill-integrator is installed)
+3. Check `bootstrap/templates/AGENTS.template.md` (if in the skills repo itself)
+4. **Last resort**: fetch from `https://raw.githubusercontent.com/gpolanco/agent-skills-sh/main/bootstrap/templates/AGENTS.template.md`
+
+**Search order for other templates:**
+1. Check `${SKILLS_DIR}/skill-integrator/assets/` for local copies
+2. Check `bootstrap/templates/` (if in the skills repo itself)
+3. **Last resort**: fetch from remote
+
+**Important**: If `AGENTS.md` already exists and was created by the CLI, use it as the base template. Only fill in the placeholders.
 
 Rules:
 
