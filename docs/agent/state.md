@@ -7,10 +7,11 @@
 - Corrección formato de salida CLI ✅ (2026-02-04)
 - Formato de agentes compatible con Claude Code ✅ (2026-02-04)
 - v1.0.1 publicada ✅ (2026-02-04)
-- **Bug**: Agentes duplicados en Claude Code (detecta `planner.md` + `planner/AGENT.md`)
+- Fix: Agentes duplicados resuelto ✅ (2026-02-04)
+- Fix: skill-integrator usa templates locales ✅ (2026-02-04)
 
 ## Next
-- Fix: Eliminar AGENT.md de carpeta después de copiarlo como archivo directo
+- Publicar v1.0.2 con fixes
 - Probar CLI en proyecto real para validar flujo completo
 - Considerar añadir soporte para Windsurf (similar a Cursor)
 - Evolucionar catálogo de skills
