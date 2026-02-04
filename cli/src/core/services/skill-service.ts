@@ -150,15 +150,18 @@ export async function installAgent(
   await mkdir(destPath, { recursive: true });
   await cp(agent.path, destPath, { recursive: true });
 
-  // Also create a direct .md file for Claude Code subagent registration
+  // Create a direct .md file for Claude Code subagent registration
   // Claude Code expects: .claude/agents/<name>.md (file, not folder)
   const agentMdSource = join(agent.path, "AGENT.md");
   const agentMdDest = join(targetDir, `${agent.id}.md`);
+  const agentMdInFolder = join(destPath, "AGENT.md");
 
   try {
     await copyFile(agentMdSource, agentMdDest);
+    // Remove AGENT.md from folder to avoid duplicate detection by Claude Code
+    await rm(agentMdInFolder);
   } catch {
-    // If AGENT.md doesn't exist, skip the direct file creation
+    // If AGENT.md doesn't exist, skip
   }
 }
 

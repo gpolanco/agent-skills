@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { mkdir, writeFile, rm, readdir } from "node:fs/promises";
+import { mkdir, writeFile, rm, readdir, access } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 
@@ -224,9 +224,15 @@ version: "1.0.0"
 
       await installAgent(agent, agentsDir);
 
+      // Check direct .md file was created for Claude Code
+      const directFile = join(agentsDir, "planner.md");
+      const directFileExists = await access(directFile).then(() => true).catch(() => false);
+      expect(directFileExists).toBe(true);
+
+      // Check folder exists but AGENT.md was removed (to avoid duplicate detection)
       const installedPath = join(agentsDir, "planner");
       const entries = await readdir(installedPath);
-      expect(entries).toContain("AGENT.md");
+      expect(entries).not.toContain("AGENT.md");
     });
   });
 
