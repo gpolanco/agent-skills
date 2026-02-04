@@ -14,7 +14,21 @@
 ## Next
 - Mergear PR de Changesets para publicar v1.0.2
 - Probar CLI en proyecto real para validar flujo completo
-- Considerar añadir soporte para Windsurf (similar a Cursor)
+
+## Fase 7 - Multi-Editor Integration (Pendiente)
+Investigar e integrar formato oficial de cada editor:
+
+| Editor | Estado | Formato conocido |
+|--------|--------|------------------|
+| Claude Code | ✅ Done | `.claude/skills/`, `.claude/agents/*.md` |
+| Cursor | ⏳ Pendiente | `.cursorrules`, `.cursor/rules/*.mdc` |
+| GitHub Copilot | ⏳ Pendiente | `.github/copilot-instructions.md` |
+| Windsurf | ⏳ Pendiente | ¿Similar a Cursor? |
+| VS Code + Copilot | ⏳ Pendiente | Investigar |
+| OpenCode | ⏳ Pendiente | Investigar |
+| GPT Code | ⏳ Pendiente | Investigar |
+| Gemini | ⏳ Pendiente | `.gemini/` |
+
 - Evolucionar catálogo de skills
 
 ## Blockers
