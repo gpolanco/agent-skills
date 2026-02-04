@@ -9,9 +9,10 @@
 - v1.0.1 publicada ✅ (2026-02-04)
 - Fix: Agentes duplicados resuelto ✅ (2026-02-04)
 - Fix: skill-integrator usa templates locales ✅ (2026-02-04)
+- Changeset para v1.0.2 creado ✅ (2026-02-04)
 
 ## Next
-- Publicar v1.0.2 con fixes
+- Mergear PR de Changesets para publicar v1.0.2
 - Probar CLI en proyecto real para validar flujo completo
 - Considerar añadir soporte para Windsurf (similar a Cursor)
 - Evolucionar catálogo de skills
